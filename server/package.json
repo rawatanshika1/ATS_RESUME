@@ -1,0 +1,40 @@
+{
+  "name": "ai-resume-analyzer-server",
+  "version": "1.0.0",
+  "description": "Backend for AI Resume Analyzer (ATS Score) powered by Google Gemini",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "lint": "eslint .",
+    "test": "node src/tests/unitTests.test.js",
+    "test:auth": "node src/tests/testAuth.js",
+    "test:health": "node src/tests/testHealth.js",
+    "test:error": "node src/tests/errorHandler.test.js",
+    "test:security": "node src/tests/securityMiddleware.test.js",
+    "test:uploads": "node src/tests/uploadValidation.test.js",
+    "test:analysis-text": "node src/tests/analysisText.test.js",
+    "test:resume": "node src/tests/resumeRoutes.test.js",
+    "test:resume-ai": "node src/tests/resumeAiRoutes.test.js"
+  },
+  "dependencies": {
+    "@google/genai": "latest",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.12.1",
+    "multer": "^1.4.5-lts.1",
+    "pdf-parse": "^1.1.1",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.12.0",
+    "globals": "^17.13.0",
+    "mongodb-memory-server": "^11.3.0"
+  }
+}
