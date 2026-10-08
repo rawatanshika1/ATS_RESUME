@@ -9,10 +9,13 @@ const app = express();
 app.use(helmet());
 
 // CORS configuration
-const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
+const clientUrls = (process.env.CLIENT_URL || 'http://localhost:5173')
+  .split(',')
+  .map((url) => url.trim())
+  .filter(Boolean);
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || origin === clientUrl) {
+    if (!origin || clientUrls.includes(origin)) {
       return callback(null, origin || false);
     }
     return callback(null, false);

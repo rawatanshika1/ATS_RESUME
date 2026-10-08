@@ -80,9 +80,17 @@ Ats_resume_project/
 
 ## ⚙️ Environment Variables
 
-Create a `.env` file inside the `/server` directory (refer to `.env.example`):
+For local development, create `server/.env` from `server/.env.example` and
+`client/.env` from `client/.env.example`. The client defaults to `/api` when
+`VITE_API_URL` is unset, which uses the Vite development proxy.
 
 ```env
+# client/.env
+VITE_API_URL=/api
+```
+
+```env
+# server/.env
 PORT=5000
 NODE_ENV=development
 MONGO_URI=mongodb://127.0.0.1:27017/ats_resume_analyzer
@@ -91,6 +99,20 @@ GEMINI_API_KEY=your_gemini_api_key_here
 GEMINI_MODEL=gemini-3.8-flash
 CLIENT_URL=http://localhost:5173
 ```
+
+`CLIENT_URL` accepts a comma-separated list of exact frontend origins, for
+example `http://localhost:5173,https://preview.example.com,https://app.example.com`.
+In production, set `NODE_ENV=production`, provide a strong `JWT_SECRET`, and set
+`MONGO_URI`, `GEMINI_API_KEY`, `GEMINI_MODEL`, `CLIENT_URL`, and `PORT` in the
+server hosting provider's environment settings. The host-provided `PORT` is used
+by `npm start`.
+
+For a Vercel client deployment, set `VITE_API_URL` to the deployed backend API
+base URL, including `/api` (for example, `https://api.example.com/api`). Set
+the same client origin in the server's `CLIENT_URL`. The Vercel rewrite serves
+the React application for client-side routes, so refreshing a nested route
+continues to load the app. Configure Vercel with the `client` project root, the
+`npm run build` build command, and `dist` as the output directory.
 
 ---
 
@@ -106,6 +128,11 @@ npm install
 Start the backend server in development mode:
 ```bash
 npm run dev
+```
+
+For production, use:
+```bash
+npm start
 ```
 
 Run unit & integration tests:
