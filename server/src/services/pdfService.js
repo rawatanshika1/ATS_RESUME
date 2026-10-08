@@ -12,6 +12,7 @@ const parsePdfBuffer = async (dataBuffer) => {
     throw new Error('Invalid PDF file buffer provided.');
   }
 
+  console.info(`[PDF Parser] Parsing upload: bytes=${dataBuffer.length}`);
   try {
     const data = await pdfParse(dataBuffer);
     let extractedText = data.text || '';
@@ -30,6 +31,7 @@ const parsePdfBuffer = async (dataBuffer) => {
     const alphanumericCount = (extractedText.match(/[a-zA-Z0-9]/g) || []).length;
 
     if (extractedText.length < 30 || alphanumericCount < 20) {
+      console.warn(`[PDF Parser] Rejected upload: extractedChars=${extractedText.length}, alphanumericChars=${alphanumericCount}`);
       throw new Error('No readable text found. Please upload a text-based PDF.');
     }
 
@@ -39,11 +41,13 @@ const parsePdfBuffer = async (dataBuffer) => {
       extractedText = extractedText.substring(0, MAX_TEXT_LENGTH);
     }
 
+    console.info(`[PDF Parser] Extracted text: chars=${extractedText.length}`);
     return extractedText;
   } catch (error) {
     if (error.message.includes('No readable text found')) {
       throw error;
     }
+    console.error(`[PDF Parser] Parsing failed: ${error.name}`);
     throw new Error('No readable text found. Please upload a text-based PDF.', { cause: error });
   }
 };

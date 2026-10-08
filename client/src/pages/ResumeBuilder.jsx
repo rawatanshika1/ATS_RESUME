@@ -304,7 +304,7 @@ const ResumeBuilder = () => {
         <div className="editor-form-column">
           <section className="editor-card">
             <button type="button" className="editor-section-heading" aria-expanded={openSections.personalInfo} onClick={() => toggleSection('personalInfo')}>
-              <span className="editor-section-icon"><UserRound size={17} /></span><span className="editor-section-title"><strong>Personal information</strong><small>How employers can reach you</small></span>{openSections.personalInfo ? <ChevronUp size={17} /> : <ChevronDown size={17} />}
+              <span className="editor-section-icon"><UserRound size={17} /></span><span className="editor-section-title"><span>Personal information</span><small>How employers can reach you</small></span>{openSections.personalInfo ? <ChevronUp size={17} /> : <ChevronDown size={17} />}
             </button>
             {openSections.personalInfo && <div className="editor-fields">
               <EditorField label="Full name" value={resume.personalInfo.fullName} onChange={(value) => updatePersonal('fullName', value)} placeholder="Your name" />
@@ -316,14 +316,14 @@ const ResumeBuilder = () => {
 
           <section className="editor-card">
             <button type="button" className="editor-section-heading" aria-expanded={openSections.summary} onClick={() => toggleSection('summary')}>
-              <span className="editor-section-icon"><Sparkles size={17} /></span><span className="editor-section-title"><strong>Objective / summary</strong><small>A short introduction to your experience</small></span>{openSections.summary ? <ChevronUp size={17} /> : <ChevronDown size={17} />}
+              <span className="editor-section-icon"><Sparkles size={17} /></span><span className="editor-section-title"><span>Objective / summary</span><small>A short introduction to your experience</small></span>{openSections.summary ? <ChevronUp size={17} /> : <ChevronDown size={17} />}
             </button>
             {openSections.summary && <div className="editor-fields"><EditorField label="Professional summary" multiline value={resume.summary} onChange={(value) => updateField('summary', value)} placeholder="Describe your experience, strengths, and what you bring to your next role." /><span className="field-hint">{resume.summary.length}/1,200 characters</span></div>}
           </section>
 
           <section className="editor-card">
             <button type="button" className="editor-section-heading" aria-expanded={openSections.skills} onClick={() => toggleSection('skills')}>
-              <span className="editor-section-icon"><Sparkles size={17} /></span><span className="editor-section-title"><strong>Skills</strong><small>Separate each skill with a comma</small></span>{openSections.skills ? <ChevronUp size={17} /> : <ChevronDown size={17} />}
+              <span className="editor-section-icon"><Sparkles size={17} /></span><span className="editor-section-title"><span>Skills</span><small>Separate each skill with a comma</small></span>{openSections.skills ? <ChevronUp size={17} /> : <ChevronDown size={17} />}
             </button>
             {openSections.skills && <div className="editor-fields"><EditorField label="Skills" multiline value={resume.skills.join(', ')} onChange={(value) => updateField('skills', value.split(/[,;\n]/).map((skill) => skill.trim()).filter(Boolean))} placeholder="Project management, Figma, User research, Communication" /><div className="resume-chips">{resume.skills.map((skill) => <span key={skill}>{skill}</span>)}</div></div>}
           </section>
@@ -331,11 +331,11 @@ const ResumeBuilder = () => {
           {listSections.map(({ key, title, icon: Icon, itemLabel, fields }) => (
             <section className="editor-card" key={key}>
               <button type="button" className="editor-section-heading" aria-expanded={openSections[key]} onClick={() => toggleSection(key)}>
-                <span className="editor-section-icon"><Icon size={17} /></span><span className="editor-section-title"><strong>{title}</strong><small>{resume[key].length ? `${resume[key].length} ${resume[key].length === 1 ? 'entry' : 'entries'}` : 'Add relevant details'}</small></span>{openSections[key] ? <ChevronUp size={17} /> : <ChevronDown size={17} />}
+                <span className="editor-section-icon"><Icon size={17} /></span><span className="editor-section-title"><span>{title}</span><small>{resume[key].length ? `${resume[key].length} ${resume[key].length === 1 ? 'entry' : 'entries'}` : 'Add relevant details'}</small></span>{openSections[key] ? <ChevronUp size={17} /> : <ChevronDown size={17} />}
               </button>
               {openSections[key] && <div className="editor-fields">
                 {resume[key].map((entry, index) => <div className="repeatable-entry" key={`${key}-${index}`}>
-                  <div className="repeatable-entry-top"><strong>{itemLabel} {index + 1}</strong><button type="button" className="remove-entry-button" aria-label={`Remove ${itemLabel} ${index + 1}`} onClick={() => removeEntry(key, index)}><Trash2 size={14} /> Remove</button></div>
+                  <div className="repeatable-entry-top"><span>{itemLabel} {index + 1}</span><button type="button" className="remove-entry-button" aria-label={`Remove ${itemLabel} ${index + 1}`} onClick={() => removeEntry(key, index)}><Trash2 size={14} /> Remove</button></div>
                   <div className="editor-field-grid">{fields.map((field) => <EditorField key={field.key} label={field.label} placeholder={field.placeholder} multiline={field.multiline} fieldId={`${key}-${index}-${field.key}`} value={entry[field.key] || ''} onChange={(value) => updateEntry(key, index, field.key, value)} />)}</div>
                 </div>)}
                 <button type="button" className="add-entry-button" onClick={() => addEntry(key)}><CirclePlus size={16} /> Add {itemLabel}</button>
@@ -345,7 +345,7 @@ const ResumeBuilder = () => {
         </div>
 
         <aside className="editor-preview-column">
-          <div className="preview-panel-heading"><div><span className="section-kicker">LIVE PREVIEW</span><h3>{resumeTemplates.find((item) => item.id === resume.templateId)?.name || 'Classic'} template</h3></div><span className="preview-live-dot"><span /> Live</span></div>
+          <div className="preview-panel-heading"><div><span className="section-kicker">Live preview</span><h3>{resumeTemplates.find((item) => item.id === resume.templateId)?.name || 'Classic'} template</h3></div><span className="preview-live-dot"><span /> Live</span></div>
           <div className="resume-preview-stage"><ResumePreview resume={resume} previewRef={previewRef} /></div>
           <form className="ats-apply-card" onSubmit={applyAts}>
             <div className="ats-apply-heading"><span><Sparkles size={17} /></span><div><h3>Check your ATS match</h3><p>Compare this resume to a job description.</p></div></div>
@@ -391,8 +391,8 @@ const ResumeBuilder = () => {
               {aiAction === 'improveBullet' && <><h4>Three stronger options</h4>{aiResult.rewrites.map((rewrite, index) => <div className="ai-result-item" key={`${index}-${rewrite}`}><p>{rewrite}</p><button type="button" className="ai-apply-button" onClick={() => applyBulletRewrite(rewrite)}>Apply rewrite</button></div>)}</>}
               {aiAction === 'tailor' && <><h4>Tailored summary</h4><p>{aiResult.summary}</p><button type="button" className="ai-apply-button" onClick={() => { updateField('summary', aiResult.summary); showToast('Tailored summary applied.', 'success'); }}>Apply summary</button><h4>Supported skills</h4><div className="resume-chips">{aiResult.skills.map((skill) => <span key={skill}>{skill}</span>)}</div><button type="button" className="ai-apply-button" onClick={() => { updateField('skills', aiResult.skills); showToast('Tailored skills applied.', 'success'); }}>Replace skills</button></>}
               {aiAction === 'coverLetter' && <><h4>Cover letter</h4><p className="ai-cover-letter">{aiResult.coverLetter}</p></>}
-              {aiAction === 'interviewQuestions' && <><h4>Technical questions ({aiResult.technicalQuestions.length})</h4>{aiResult.technicalQuestions.map((item, index) => <div className="ai-result-item" key={`technical-${index}`}><strong>{index + 1}. {item.question}</strong><p><b>Tip:</b> {item.answerTip}</p></div>)}<h4>HR questions ({aiResult.hrQuestions.length})</h4>{aiResult.hrQuestions.map((item, index) => <div className="ai-result-item" key={`hr-${index}`}><strong>{index + 1}. {item.question}</strong><p><b>Tip:</b> {item.answerTip}</p></div>)}</>}
-              {aiAction === 'skillRoadmap' && <><h4>Prioritized learning roadmap</h4>{aiResult.roadmap.length ? aiResult.roadmap.map((item, index) => <div className="ai-result-item" key={`${item.keyword}-${index}`}><strong>{item.keyword} <span className={`ai-priority priority-${item.priority}`}>{item.priority}</span></strong><p>{item.gap}</p><p><b>Next step:</b> {item.action}</p><small>{item.timeframe}</small></div>) : <p>No significant skill gaps were identified from this resume and job description.</p>}</>}
+              {aiAction === 'interviewQuestions' && <><h4>Technical questions ({aiResult.technicalQuestions.length})</h4>{aiResult.technicalQuestions.map((item, index) => <div className="ai-result-item" key={`technical-${index}`}><span>{index + 1}. {item.question}</span><p><span>Tip:</span> {item.answerTip}</p></div>)}<h4>HR questions ({aiResult.hrQuestions.length})</h4>{aiResult.hrQuestions.map((item, index) => <div className="ai-result-item" key={`hr-${index}`}><span>{index + 1}. {item.question}</span><p><span>Tip:</span> {item.answerTip}</p></div>)}</>}
+              {aiAction === 'skillRoadmap' && <><h4>Prioritized learning roadmap</h4>{aiResult.roadmap.length ? aiResult.roadmap.map((item, index) => <div className="ai-result-item" key={`${item.keyword}-${index}`}><span>{item.keyword} <span className={`ai-priority priority-${item.priority}`}>{item.priority}</span></span><p>{item.gap}</p><p><span>Next step:</span> {item.action}</p><small>{item.timeframe}</small></div>) : <p>No significant skill gaps were identified from this resume and job description.</p>}</>}
             </div>}
           </section>
           <div className="editor-note"><Check size={14} /> Single-column layout, standard fonts, and text-based sections.</div>

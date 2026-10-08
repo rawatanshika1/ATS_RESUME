@@ -6,10 +6,10 @@ const server = app.listen(5099, async () => {
     let data = '';
     res.on('data', chunk => data += chunk);
     res.on('end', () => {
-      console.log('HEALTH TEST RESULT:', res.statusCode, data);
+      console.info('HEALTH TEST RESULT:', res.statusCode, data);
       server.close();
       if (res.statusCode === 200 && data.includes('"status":"ok"')) {
-        console.log('✅ Phase 1 Health Test Passed');
+        console.info('✅ Phase 1 Health Test Passed');
         process.exit(0);
       } else {
         console.error('❌ Phase 1 Health Test Failed');

@@ -6,7 +6,7 @@ const app = require('../app');
 
 async function runAuthTests() {
   const testPassword = randomBytes(24).toString('base64url');
-  console.log('--- STARTING PHASE 2 AUTH TESTS ---');
+  console.info('--- STARTING PHASE 2 AUTH TESTS ---');
   let mongod = null;
   
   try {
@@ -14,9 +14,9 @@ async function runAuthTests() {
     mongod = await MongoMemoryServer.create();
     const uri = mongod.getUri();
     await mongoose.connect(uri);
-    console.log('Connected to In-Memory MongoDB for testing:', uri);
+    console.info('Connected to In-Memory MongoDB for testing:', uri);
   } catch (err) {
-    console.log('MongoMemoryServer fallback to standard URI:', err.message);
+    console.info('MongoMemoryServer fallback to standard URI:', err.message);
     const mongoUri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/ats_resume_analyzer_test';
     await mongoose.connect(mongoUri, { serverSelectionTimeoutMS: 2000 });
   }
@@ -30,7 +30,7 @@ async function runAuthTests() {
         email: 'testuser@example.com',
         password: testPassword
       });
-      console.log('1. Register response code:', regRes.statusCode);
+      console.info('1. Register response code:', regRes.statusCode);
       if (regRes.statusCode !== 201 || !regRes.body.token) {
         throw new Error(`Register failed: ${JSON.stringify(regRes.body)}`);
       }
@@ -42,7 +42,7 @@ async function runAuthTests() {
         email: 'testuser@example.com',
         password: testPassword
       });
-      console.log('2. Duplicate Register code:', dupRes.statusCode);
+      console.info('2. Duplicate Register code:', dupRes.statusCode);
       if (dupRes.statusCode !== 400) {
         throw new Error(`Duplicate register should return 400, got ${dupRes.statusCode}`);
       }
@@ -52,7 +52,7 @@ async function runAuthTests() {
         email: 'testuser@example.com',
         password: testPassword
       });
-      console.log('3. Login response code:', loginRes.statusCode);
+      console.info('3. Login response code:', loginRes.statusCode);
       if (loginRes.statusCode !== 200 || !loginRes.body.token) {
         throw new Error(`Login failed: ${JSON.stringify(loginRes.body)}`);
       }
@@ -61,12 +61,12 @@ async function runAuthTests() {
       const meRes = await makeRequest('GET', `http://localhost:${PORT}/api/auth/me`, null, {
         'Authorization': `Bearer ${token}`
       });
-      console.log('4. GET /me response code:', meRes.statusCode);
+      console.info('4. GET /me response code:', meRes.statusCode);
       if (meRes.statusCode !== 200 || meRes.body.user.email !== 'testuser@example.com') {
         throw new Error(`Get me failed: ${JSON.stringify(meRes.body)}`);
       }
 
-      console.log('✅ ALL PHASE 2 AUTH TESTS PASSED SUCCESSFULLY!');
+      console.info('✅ ALL PHASE 2 AUTH TESTS PASSED SUCCESSFULLY!');
       server.close();
       if (mongoose.connection.readyState !== 0) await mongoose.connection.close();
       if (mongod) await mongod.stop();

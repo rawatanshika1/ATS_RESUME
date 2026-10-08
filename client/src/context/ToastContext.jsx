@@ -26,24 +26,24 @@ export const ToastProvider = ({ children }) => {
         {toasts.map((toast) => (
           <div
             key={toast.id}
-            className={`pointer-events-auto flex items-center justify-between p-4 rounded-xl shadow-2xl border backdrop-blur-md transition-all duration-300 transform translate-y-0 ${
+            className={`pointer-events-auto flex items-center justify-between p-4 rounded-lg border transition-all duration-300 transform translate-y-0 ${
               toast.type === 'success'
-                ? 'toast-success bg-emerald-950/90 border-emerald-500/40 text-emerald-200'
+                ? 'toast-success border-success text-success'
                 : toast.type === 'error'
-                ? 'toast-error bg-rose-950/90 border-rose-500/40 text-rose-200'
-                : 'toast-info bg-indigo-950/90 border-indigo-500/40 text-indigo-200'
+                ? 'toast-error border-error text-error'
+                : 'toast-info border-line text-main'
             }`}
           >
             <div className="flex items-center gap-3">
-              {toast.type === 'success' && <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />}
-              {toast.type === 'error' && <AlertCircle className="w-5 h-5 text-rose-400 shrink-0" />}
-              {toast.type === 'info' && <Info className="w-5 h-5 text-indigo-400 shrink-0" />}
-              <span className="text-sm font-medium">{toast.message}</span>
+              {toast.type === 'success' && <CheckCircle2 className="w-5 h-5 text-success shrink-0" />}
+              {toast.type === 'error' && <AlertCircle className="w-5 h-5 text-error shrink-0" />}
+              {toast.type === 'info' && <Info className="w-5 h-5 text-primary shrink-0" />}
+              <span className="text-sm">{toast.message}</span>
             </div>
             <button
               onClick={() => removeToast(toast.id)}
               aria-label="Dismiss notification"
-              className="p-1 hover:bg-white/10 rounded-lg text-slate-400 hover:text-white transition-colors ml-3"
+              className="p-1 hover:bg-page rounded-md text-muted hover:text-main transition-colors ml-3"
             >
               <X className="w-4 h-4" />
             </button>

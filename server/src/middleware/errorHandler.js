@@ -49,7 +49,7 @@ const errorHandler = (err, req, res, next) => {
   res.status(statusCode).json({
     success: false,
     message: err.isAiServiceError
-      ? 'The AI service could not complete this request. Please try again later.'
+      ? err.publicMessage || 'The AI service could not complete this request. Please try again later.'
       : statusCode >= 500
         ? 'An unexpected server error occurred. Please try again.'
         : message

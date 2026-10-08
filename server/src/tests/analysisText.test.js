@@ -176,7 +176,7 @@ async function runAnalysisTextTests() {
     assert.strictEqual((await makeRequest(port, 'DELETE', `/api/analyses/${analysisIds[1]}`, token)).status, 200);
     assert.strictEqual((await makeRequest(port, 'GET', `/api/analyses/${analysisIds[1]}`, token)).status, 404);
 
-    console.log('Analysis modes, pagination, ownership, deletion, parseability, and share-link tests passed.');
+    console.info('Analysis modes, pagination, ownership, deletion, parseability, and share-link tests passed.');
   } finally {
     if (server) await new Promise((resolve) => server.close(resolve));
     if (mongoose.connection.readyState !== 0) await mongoose.connection.close();

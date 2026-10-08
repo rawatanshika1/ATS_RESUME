@@ -6,18 +6,12 @@ const ScoreGauge = ({ score = 0, size = 180, strokeWidth = 14 }) => {
   const circumference = 2 * Math.PI * radius;
   const strokeDashoffset = circumference - (normalizedScore / 100) * circumference;
 
-  let colorClass = 'stroke-indigo-500 text-indigo-600';
   let badgeLabel = 'Excellent Match';
-  let glowStyle = 'drop-shadow-[0_0_12px_rgba(91,75,219,0.24)]';
 
   if (normalizedScore < 60) {
-    colorClass = 'stroke-indigo-500 text-indigo-600';
     badgeLabel = 'Needs Optimization';
-    glowStyle = 'drop-shadow-[0_0_12px_rgba(91,75,219,0.24)]';
   } else if (normalizedScore < 80) {
-    colorClass = 'stroke-indigo-500 text-indigo-600';
     badgeLabel = 'Good Match';
-    glowStyle = 'drop-shadow-[0_0_12px_rgba(91,75,219,0.24)]';
   }
 
   return (
@@ -29,7 +23,7 @@ const ScoreGauge = ({ score = 0, size = 180, strokeWidth = 14 }) => {
             cx={size / 2}
             cy={size / 2}
             r={radius}
-            className="stroke-slate-200"
+            stroke="var(--line)"
             strokeWidth={strokeWidth}
             fill="transparent"
           />
@@ -38,7 +32,8 @@ const ScoreGauge = ({ score = 0, size = 180, strokeWidth = 14 }) => {
             cx={size / 2}
             cy={size / 2}
             r={radius}
-            className={`${colorClass} ${glowStyle} transition-all duration-1000 ease-out`}
+            stroke="var(--primary)"
+            className="transition-all duration-1000 ease-out"
             strokeWidth={strokeWidth}
             strokeDasharray={circumference}
             strokeDashoffset={strokeDashoffset}
@@ -47,11 +42,11 @@ const ScoreGauge = ({ score = 0, size = 180, strokeWidth = 14 }) => {
           />
         </svg>
         <div className="absolute flex flex-col items-center justify-center text-center">
-          <span className="text-4xl font-extrabold tracking-tight text-main">{normalizedScore}%</span>
-          <span className="text-xs uppercase tracking-wider font-semibold text-muted mt-1">ATS Score</span>
+          <span className="text-4xl font-medium tracking-tight text-main">{normalizedScore}%</span>
+          <span className="text-xs text-muted mt-1">ATS score</span>
         </div>
       </div>
-      <div className={`score-badge mt-3 inline-flex items-center px-3 py-1 rounded-full text-xs font-bold border ${colorClass.split(' ')[1]} border-current/30`}>
+      <div className="score-badge mt-3 inline-flex items-center px-3 py-1 rounded-md text-xs border border-line text-primary">
         {badgeLabel}
       </div>
     </div>

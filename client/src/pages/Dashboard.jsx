@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const tools = [
-  { title: 'Analyze resume', description: 'See how your resume matches a role and get feedback you can use.', icon: FilePlus2, path: '/analyze', className: 'tool-featured', label: 'GET STARTED' },
+  { title: 'Analyze resume', description: 'See how your resume matches a role and get feedback you can use.', icon: FilePlus2, path: '/analyze', className: 'tool-featured', label: 'Get started' },
   { title: 'Build resume', description: 'Bring your experience together in a clear, polished resume.', icon: FileHeart, path: '/builder' },
   { title: 'Cover letter', description: 'Find the right words to introduce yourself for a role.', icon: MessageSquareText, path: '/builder' },
   { title: 'Interview prep', description: 'Practice telling your story with confidence.', icon: BriefcaseBusiness, path: '/builder' },
@@ -21,27 +21,27 @@ const Dashboard = () => {
     <motion.div className="dashboard-page" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
       <section className="dashboard-welcome">
         <div className="welcome-copy">
-          <span className="eyebrow"><Sparkles size={14} /> YOUR CAREER, IN MOTION</span>
+          <span className="eyebrow"><Sparkles size={14} /> Your career, in motion</span>
           <h2>Good things are<br className="mobile-break" /> ahead, {firstName}.</h2>
           <p>Make your next application a little more you.</p>
         </div>
         <div className="welcome-art" aria-hidden="true">
           <div className="welcome-orbit orbit-one" /><div className="welcome-orbit orbit-two" />
-          <div className="welcome-document"><span /><span /><span /><b><Sparkles size={17} /></b></div>
-          <span className="welcome-sparkle sparkle-one">✦</span><span className="welcome-sparkle sparkle-two">✧</span>
+          <div className="welcome-document"><span /><span /><span /><span className="welcome-document-badge"><Sparkles size={17} /></span></div>
+          <span className="welcome-sparkle sparkle-one" /><span className="welcome-sparkle sparkle-two" />
         </div>
       </section>
 
       <section className="tool-section">
         <div className="section-heading">
-          <div><span className="section-kicker">YOUR TOOLKIT</span><h2>Where would you like to start?</h2></div>
+          <div><span className="section-kicker">Your toolkit</span><h2>Where would you like to start?</h2></div>
           <p>Small steps add up to big opportunities.</p>
         </div>
         <div className="tool-grid">
           {tools.map(({ title, description, icon: Icon, path, soon, label }, index) => {
             const content = (
               <>
-                <div className="tool-card-top"><span className="tool-icon"><Icon size={21} /></span>{soon ? <span className="coming-soon">COMING SOON</span> : <ArrowUpRight size={18} className="tool-arrow" />}</div>
+                <div className="tool-card-top"><span className="tool-icon"><Icon size={21} /></span>{soon ? <span className="coming-soon">Coming soon</span> : <ArrowUpRight size={18} className="tool-arrow" />}</div>
                 <div><h3>{title}</h3><p>{description}</p></div>
                 {label && <span className="tool-card-label">{label}<ArrowUpRight size={14} /></span>}
               </>
@@ -57,7 +57,7 @@ const Dashboard = () => {
 
       <aside className="dashboard-tip">
         <span className="tip-icon"><Sparkles size={17} /></span>
-        <p><strong>A little tip</strong> Tailoring your resume to each role helps the right experience shine.</p>
+        <p><span>A little tip</span> Tailoring your resume to each role helps the right experience shine.</p>
         <Link to="/analyze">Give it a try <ArrowUpRight size={15} /></Link>
       </aside>
     </motion.div>

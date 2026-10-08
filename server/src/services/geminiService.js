@@ -1,21 +1,15 @@
-const { GoogleGenAI, Type } = require('@google/genai');
+const { Type } = require('@google/genai');
 const { GENERAL_SYSTEM_PROMPT, getGeneralUserPrompt } = require('../prompts/generalPrompt');
 const { FRESHER_SYSTEM_PROMPT, getFresherUserPrompt } = require('../prompts/fresherPrompt');
 const { INTERNSHIP_SYSTEM_PROMPT, getInternshipUserPrompt } = require('../prompts/internshipPrompt');
 const { LINKEDIN_SYSTEM_PROMPT, getLinkedinUserPrompt } = require('../prompts/linkedinPrompt');
 const { safeJsonParse, sanitizeAnalysisResult } = require('../utils/scoreUtils');
 const createAiServiceError = require('../utils/aiServiceError');
-
-/**
- * Initializes Gemini client instance
- */
-const getGeminiClient = () => {
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    throw new Error('GEMINI_API_KEY is not configured in server environment variables.');
-  }
-  return new GoogleGenAI({ apiKey });
-};
+const {
+  generateContentWithRetries,
+  MAX_JOB_DESCRIPTION_CHARS,
+  MAX_RESUME_CHARS
+} = require('./geminiClient');
 
 /**
  * Defines Gemini Response Schema matching required structured output
@@ -105,11 +99,8 @@ const getResponseSchema = (mode) => {
  * @returns {Promise<Object>} - Sanitized ATS analysis result object
  */
 const analyzeResumeWithGemini = async (resumeText, jobDescription, mode = 'general') => {
-  const ai = getGeminiClient();
-  const modelName = process.env.GEMINI_MODEL;
-  if (!modelName) {
-    throw new Error('GEMINI_MODEL is not configured in server environment variables.');
-  }
+  const boundedResumeText = resumeText.slice(0, MAX_RESUME_CHARS);
+  const boundedJobDescription = jobDescription.slice(0, MAX_JOB_DESCRIPTION_CHARS);
 
   let systemPrompt;
   let userPrompt;
@@ -117,63 +108,44 @@ const analyzeResumeWithGemini = async (resumeText, jobDescription, mode = 'gener
   switch (mode) {
     case 'fresher':
       systemPrompt = FRESHER_SYSTEM_PROMPT;
-      userPrompt = getFresherUserPrompt(resumeText, jobDescription);
+      userPrompt = getFresherUserPrompt(boundedResumeText, boundedJobDescription);
       break;
     case 'internship':
       systemPrompt = INTERNSHIP_SYSTEM_PROMPT;
-      userPrompt = getInternshipUserPrompt(resumeText, jobDescription);
+      userPrompt = getInternshipUserPrompt(boundedResumeText, boundedJobDescription);
       break;
     case 'linkedin':
       systemPrompt = LINKEDIN_SYSTEM_PROMPT;
-      userPrompt = getLinkedinUserPrompt(resumeText, jobDescription);
+      userPrompt = getLinkedinUserPrompt(boundedResumeText, boundedJobDescription);
       break;
     case 'general':
     default:
       systemPrompt = GENERAL_SYSTEM_PROMPT;
-      userPrompt = getGeneralUserPrompt(resumeText, jobDescription);
+      userPrompt = getGeneralUserPrompt(boundedResumeText, boundedJobDescription);
       break;
   }
 
   const schema = getResponseSchema(mode);
 
-  const maxRetries = 2;
-  for (let attempt = 0; attempt <= maxRetries; attempt++) {
-    try {
-      if (attempt > 0) {
-        console.log(`[Gemini Service] Retry attempt ${attempt}/${maxRetries}...`);
-        await new Promise((resolve) => setTimeout(resolve, 1000 * attempt));
-      }
-
-      const response = await ai.models.generateContent({
-        model: modelName,
-        contents: userPrompt,
-        config: {
-          systemInstruction: systemPrompt,
-          responseMimeType: 'application/json',
-          responseSchema: schema,
-          temperature: 0.2
-        }
-      });
-
-      const responseText = response.text;
-      if (!responseText) {
-        throw new Error('Empty response received from Gemini API.');
-      }
-
-      const parsedJson = safeJsonParse(responseText);
-      const sanitized = sanitizeAnalysisResult(parsedJson);
-
-      return sanitized;
-    } catch (err) {
-      const upstreamStatus = Number(err.status || err.statusCode);
-      console.error(`[Gemini Service] Attempt ${attempt} failed${upstreamStatus ? ` (HTTP ${upstreamStatus})` : ''}.`);
-      if (upstreamStatus === 429 || (upstreamStatus >= 400 && upstreamStatus < 500)) {
-        break;
-      }
+  try {
+    const response = await generateContentWithRetries(userPrompt, {
+      systemInstruction: systemPrompt,
+      responseMimeType: 'application/json',
+      responseSchema: schema,
+      temperature: 0.2
+    });
+    const responseText = response.text;
+    if (!responseText) {
+      throw new Error('Empty response received from Gemini API.');
     }
-  }
 
-  throw createAiServiceError();
+    const parsedJson = safeJsonParse(responseText);
+    return sanitizeAnalysisResult(parsedJson);
+  } catch (error) {
+    const status = Number(error.status || error.statusCode);
+    console.error(`[Gemini Service] Analysis failed: name=${error.name}, status=${status || 'unknown'}`);
+    throw createAiServiceError(error);
+  }
 };
 
 module.exports = { analyzeResumeWithGemini };

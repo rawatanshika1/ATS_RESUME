@@ -84,6 +84,7 @@ Create a `.env` file inside the `/server` directory (refer to `.env.example`):
 
 ```env
 PORT=5000
+NODE_ENV=development
 MONGO_URI=mongodb://127.0.0.1:27017/ats_resume_analyzer
 JWT_SECRET=replace_with_a_long_random_secret
 GEMINI_API_KEY=your_gemini_api_key_here

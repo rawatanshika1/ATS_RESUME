@@ -116,7 +116,7 @@ async function runResumeRouteTests() {
     assert.strictEqual((await makeRequest(port, 'GET', `/api/resumes/${resumeId}`, ownerToken)).status, 404);
     assert.ok(await Resume.findById(ownedResume._id));
 
-    console.log('Resume CRUD and ownership tests passed.');
+    console.info('Resume CRUD and ownership tests passed.');
   } finally {
     if (server) await new Promise((resolve) => server.close(resolve));
     if (mongoose.connection.readyState !== 0) await mongoose.connection.close();

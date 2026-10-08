@@ -45,20 +45,20 @@ const Register = () => {
       <div className="w-full max-w-md auth-container">
         {/* Header Branding */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-indigo-600/10 border border-indigo-500/20 text-indigo-500 mb-4">
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-lg bg-page border border-line text-primary mb-4">
             <Sparkles className="w-7 h-7" />
           </div>
-          <h1 className="text-3xl font-extrabold tracking-tight text-main">Create your account</h1>
+          <h1 className="text-3xl font-medium tracking-tight text-main">Create your account</h1>
           <p className="text-muted text-sm mt-2">Make a little room for your next big opportunity.</p>
         </div>
 
         {/* Register Form Card */}
-        <div className="auth-card p-8 rounded-2xl shadow-2xl">
+        <div className="auth-card p-8 rounded-2xl">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="register-name" className="block text-xs font-semibold text-main mb-2">Full name</label>
+              <label htmlFor="register-name" className="block text-xs font-medium text-main mb-2">Full name</label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-muted">
                   <User className="w-4 h-4" />
                 </div>
                 <input
@@ -74,9 +74,9 @@ const Register = () => {
             </div>
 
             <div>
-              <label htmlFor="register-email" className="block text-xs font-semibold text-main mb-2">Email address</label>
+              <label htmlFor="register-email" className="block text-xs font-medium text-main mb-2">Email address</label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-muted">
                   <Mail className="w-4 h-4" />
                 </div>
                 <input
@@ -92,9 +92,9 @@ const Register = () => {
             </div>
 
             <div>
-              <label htmlFor="register-password" className="block text-xs font-semibold text-main mb-2">Password</label>
+              <label htmlFor="register-password" className="block text-xs font-medium text-main mb-2">Password</label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-muted">
                   <Lock className="w-4 h-4" />
                 </div>
                 <input
@@ -120,13 +120,13 @@ const Register = () => {
             <button
               type="submit"
               disabled={submitting}
-              className="button button-primary w-full py-3.5 px-4 font-semibold rounded-xl transition-all duration-200 flex items-center justify-center gap-2 group disabled:opacity-50 mt-2"
+              className="button button-primary w-full py-3.5 px-4 font-medium rounded-xl transition-all duration-200 flex items-center justify-center gap-2 group disabled:opacity-50 mt-2"
             >
               {submitting ? (
-                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <div className="w-5 h-5 border-2 border-line border-t-white rounded-full animate-spin" />
               ) : (
                 <>
-                  <span>Create Account</span>
+                  <span>Create account</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </>
               )}
@@ -135,8 +135,8 @@ const Register = () => {
 
           <div className="mt-6 text-center text-xs text-muted border-t border-divider pt-5">
             Already have an account?{' '}
-            <Link to="/login" className="text-accent font-semibold hover:underline">
-              Sign In
+            <Link to="/login" className="text-accent font-medium hover:underline">
+              Sign in
             </Link>
           </div>
         </div>

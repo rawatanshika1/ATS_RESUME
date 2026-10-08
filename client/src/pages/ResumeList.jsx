@@ -39,7 +39,7 @@ const ResumeList = () => {
   return (
     <section className="resume-workspace">
       <div className="resume-page-heading">
-        <div><span className="section-kicker">YOUR CAREER, YOUR STORY</span><h2>My resumes</h2><p>Build, refine, and keep every version ready for its next opportunity.</p></div>
+        <div><span className="section-kicker">Your career, your story</span><h2>My resumes</h2><p>Build, refine, and keep every version ready for its next opportunity.</p></div>
         <Link className="button button-primary resume-new-button" to="/builder/templates"><FilePlus2 size={17} /> Create a resume</Link>
       </div>
       {loading ? <div className="resume-state"><LoaderCircle className="resume-spinner" size={25} /><p>Loading your resumes...</p></div> :

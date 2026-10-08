@@ -122,7 +122,7 @@ async function runResumeAiRouteTests() {
     assert.strictEqual(calls[2].input.tone, 'friendly');
     assert.strictEqual(calls[0].input.bullet, 'Built an API');
 
-    console.log('Resume AI route authentication, validation, and action tests passed.');
+    console.info('Resume AI route authentication, validation, and action tests passed.');
   } finally {
     if (server) await new Promise((resolve) => server.close(resolve));
     if (mongoose.connection.readyState !== 0) await mongoose.connection.close();

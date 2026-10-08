@@ -92,7 +92,7 @@ async function run() {
     assert.strictEqual(malformed.status, 400);
     assert.strictEqual(malformedBody.message, 'Request body must contain valid JSON.');
     assert.strictEqual(Object.hasOwn(malformedBody, 'stack'), false);
-    console.log('Missing, non-PDF, oversized, empty-PDF, and malformed-JSON API cases passed.');
+    console.info('Missing, non-PDF, oversized, empty-PDF, and malformed-JSON API cases passed.');
   } finally {
     if (server) await new Promise((resolve) => server.close(resolve));
     if (mongoose.connection.readyState !== 0) await mongoose.connection.close();

@@ -53,7 +53,7 @@ async function run() {
       }
     });
     assert.strictEqual(deniedOptions.headers['access-control-allow-origin'], undefined);
-    console.log('Helmet and CORS allow/deny tests passed.');
+    console.info('Helmet and CORS allow/deny tests passed.');
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }

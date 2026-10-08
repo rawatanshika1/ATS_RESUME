@@ -125,28 +125,24 @@ const Analyze = () => {
       title: 'General ATS',
       desc: 'Standard ATS scan & recruiter analysis for experienced roles.',
       icon: Briefcase,
-      color: 'indigo'
     },
     {
       id: 'fresher',
       title: 'Fresher / Graduate',
       desc: 'Emphasizes Projects & Skills without work experience penalty.',
       icon: GraduationCap,
-      color: 'purple'
     },
     {
       id: 'internship',
       title: 'Internship',
       desc: 'Weighs coursework, lab projects & enthusiasm for intern roles.',
       icon: Award,
-      color: 'emerald'
     },
     {
       id: 'linkedin',
       title: 'LinkedIn Optimizer',
       desc: 'Adds 3 headline options, About section rewrite & top skills.',
       icon: Linkedin,
-      color: 'sky'
     }
   ];
 
@@ -154,25 +150,25 @@ const Analyze = () => {
     <div className="max-w-6xl mx-auto px-4 py-8 analyzer-page">
       {/* Page Title */}
       <div className="text-center max-w-2xl mx-auto mb-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold mb-3">
-          <Zap className="w-3.5 h-3.5 text-indigo-400" />
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-medium mb-3">
+          <Zap className="w-3.5 h-3.5 text-primary" />
           <span>Powered by Google Gemini</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-          AI Resume & ATS Score Analyzer
+        <h1 className="text-3xl sm:text-4xl font-medium tracking-tight text-main">
+          AI resume and ATS score analyzer
         </h1>
-        <p className="text-slate-400 text-sm sm:text-base mt-2">
+        <p className="text-muted text-sm sm:text-base mt-2">
           Upload your resume PDF and paste target job description to receive an instant match score, missing keywords, and tailored bullet rewrites.
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-8">
         {/* Step 1: Mode Selector */}
-        <div className="glass-panel p-6 rounded-2xl border border-slate-800">
+        <div className="glass-panel p-6 rounded-2xl border border-line">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-bold text-white flex items-center gap-2">
-              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-indigo-600 text-white text-xs font-extrabold">1</span>
-              Select Analysis Mode
+            <h2 className="text-lg font-medium text-main flex items-center gap-2">
+              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-main text-xs font-medium">1</span>
+              Select analysis mode
             </h2>
           </div>
 
@@ -188,18 +184,18 @@ const Analyze = () => {
                   aria-pressed={isSelected}
                   className={`cursor-pointer p-4 rounded-xl border transition-all duration-200 relative ${
                     isSelected
-                      ? 'bg-indigo-950/60 border-indigo-500/80 shadow-lg shadow-indigo-600/20 ring-1 ring-indigo-500/50'
-                      : 'bg-slate-900/40 border-slate-800 hover:border-slate-700 hover:bg-slate-900/80'
+                      ? 'bg-page border-primary'
+                      : 'bg-surface border-line hover:border-line hover:bg-page'
                   }`}
                 >
                   <div className="flex items-center justify-between mb-2">
-                    <div className={`p-2 rounded-lg ${isSelected ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-400'}`}>
+                    <div className={`p-2 rounded-md ${isSelected ? 'bg-page text-primary' : 'bg-page text-muted'}`}>
                       <Icon className="w-5 h-5" />
                     </div>
-                    {isSelected && <CheckCircle2 className="w-5 h-5 text-indigo-400" />}
+                    {isSelected && <CheckCircle2 className="w-5 h-5 text-primary" />}
                   </div>
-                  <h3 className="font-semibold text-white text-sm">{m.title}</h3>
-                  <p className="text-xs text-slate-400 mt-1 leading-relaxed">{m.desc}</p>
+                  <h3 className="font-medium text-main text-sm">{m.title}</h3>
+                  <p className="text-xs text-muted mt-1 leading-relaxed">{m.desc}</p>
                 </button>
               );
             })}
@@ -209,14 +205,14 @@ const Analyze = () => {
         {/* Step 2 & 3: File Upload & Job Description */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left Column: PDF Dropzone */}
-          <div className="glass-panel p-6 rounded-2xl border border-slate-800 flex flex-col justify-between">
+          <div className="glass-panel p-6 rounded-2xl border border-line flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-bold text-white flex items-center gap-2">
-                  <span className="flex items-center justify-center w-6 h-6 rounded-full bg-indigo-600 text-white text-xs font-extrabold">2</span>
-                  Upload Resume PDF
+                <h2 className="text-lg font-medium text-main flex items-center gap-2">
+                  <span className="flex items-center justify-center w-6 h-6 rounded-full bg-page border border-line text-primary text-xs font-medium">2</span>
+                  Upload resume PDF
                 </h2>
-                <span className="text-xs text-slate-400">PDF only, Max 5MB</span>
+                <span className="text-xs text-muted">PDF only, max 5 MB</span>
               </div>
 
               {!file ? (
@@ -227,8 +223,8 @@ const Analyze = () => {
                   onDrop={handleDrop}
                   className={`border-2 border-dashed rounded-2xl p-8 text-center transition-all duration-200 flex flex-col items-center justify-center cursor-pointer min-h-[220px] ${
                     dragActive
-                      ? 'border-indigo-500 bg-indigo-950/40 scale-[1.01]'
-                      : 'border-slate-700/80 bg-slate-900/40 hover:border-indigo-500/50 hover:bg-slate-900/80'
+                      ? 'border-primary bg-primary/10 scale-[1.01]'
+                      : 'border-line bg-surface hover:border-primary/30 hover:bg-page'
                   }`}
                 >
                   <input
@@ -239,26 +235,26 @@ const Analyze = () => {
                     id="resume-upload-input"
                   />
                   <label htmlFor="resume-upload-input" className="cursor-pointer flex flex-col items-center">
-                    <div className="w-14 h-14 rounded-2xl bg-indigo-600/10 border border-indigo-500/30 text-indigo-400 flex items-center justify-center mb-4">
+                    <div className="w-14 h-14 rounded-lg bg-page border border-line text-primary flex items-center justify-center mb-4">
                       <Upload className="w-7 h-7" />
                     </div>
-                    <p className="text-sm font-semibold text-slate-200">
-                      Drag & Drop your resume PDF here or <span className="text-indigo-400 underline">Browse</span>
+                    <p className="text-sm font-medium text-main">
+                      Drag and drop your resume PDF here or <span className="text-primary underline">browse</span>
                     </p>
-                    <p className="text-xs text-slate-400 mt-2">Text-based PDF format supported</p>
+                    <p className="text-xs text-muted mt-2">Text-based PDF format supported</p>
                   </label>
                 </div>
               ) : (
-                <div className="bg-slate-900/90 border border-indigo-500/40 rounded-xl p-5 flex items-center justify-between shadow-lg">
+                <div className="bg-surface border border-line rounded-lg p-5 flex items-center justify-between">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center border border-indigo-500/30">
+                    <div className="w-12 h-12 rounded-md bg-page text-primary flex items-center justify-center border border-line">
                       <FileCheck className="w-6 h-6" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-white text-sm truncate max-w-[220px] sm:max-w-[280px]">
+                      <h4 className="font-medium text-main text-sm truncate max-w-[220px] sm:max-w-[280px]">
                         {file.name}
                       </h4>
-                      <p className="text-xs text-slate-400 mt-0.5">
+                      <p className="text-xs text-muted mt-0.5">
                         {(file.size / (1024 * 1024)).toFixed(2)} MB • PDF Document
                       </p>
                     </div>
@@ -266,7 +262,7 @@ const Analyze = () => {
                   <button
                     type="button"
                     onClick={handleRemoveFile}
-                    className="p-2 hover:bg-rose-500/10 text-slate-400 hover:text-rose-400 rounded-lg transition-colors"
+                    className="p-2 hover:bg-error/10 text-muted hover:text-error rounded-lg transition-colors"
                     title="Remove file"
                   >
                     <X className="w-5 h-5" />
@@ -277,8 +273,8 @@ const Analyze = () => {
 
             {/* Job Title Input (Optional) */}
             <div className="mt-6">
-              <label htmlFor="job-title" className="block text-xs font-semibold uppercase text-slate-300 mb-2">
-                Job Title / Position (Optional)
+              <label htmlFor="job-title" className="block text-xs font-medium  text-main mb-2">
+                Job title or position (optional)
               </label>
               <input
                 id="job-title"
@@ -286,26 +282,26 @@ const Analyze = () => {
                 value={jobTitle}
                 onChange={(e) => setJobTitle(e.target.value)}
                 placeholder="e.g. Senior Frontend Developer, Data Analyst"
-                className="w-full px-4 py-2.5 bg-slate-900/80 border border-slate-700/80 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500 text-sm"
+                className="w-full px-4 py-2.5 bg-surface border border-line rounded-xl text-main placeholder-muted focus:outline-none focus:border-primary text-sm"
               />
             </div>
           </div>
 
           {/* Right Column: Job Description Textarea */}
-          <div className="glass-panel p-6 rounded-2xl border border-slate-800 flex flex-col justify-between">
+          <div className="glass-panel p-6 rounded-2xl border border-line flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-bold text-white flex items-center gap-2">
-                  <span className="flex items-center justify-center w-6 h-6 rounded-full bg-indigo-600 text-white text-xs font-extrabold">3</span>
-                  Target Job Description
+                <h2 className="text-lg font-medium text-main flex items-center gap-2">
+                  <span className="flex items-center justify-center w-6 h-6 rounded-full bg-page border border-line text-primary text-xs font-medium">3</span>
+                  Target job description
                 </h2>
                 <button
                   type="button"
                   onClick={handleLoadSampleJD}
-                  className="text-xs text-indigo-400 hover:text-indigo-300 font-semibold hover:underline flex items-center gap-1"
+                  className="text-xs text-primary hover:text-primary font-medium hover:underline flex items-center gap-1"
                 >
                   <Sparkles className="w-3.5 h-3.5" />
-                  Load Sample JD
+                  Load sample JD
                 </button>
               </div>
 
@@ -317,9 +313,9 @@ const Analyze = () => {
                   onChange={(e) => setJobDescription(e.target.value)}
                   rows={9}
                   placeholder="Paste the target job description requirements, responsibilities, and qualifications here..."
-                  className="w-full p-4 bg-slate-900/80 border border-slate-700/80 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500 text-sm leading-relaxed resize-none"
+                  className="w-full p-4 bg-surface border border-line rounded-xl text-main placeholder-muted focus:outline-none focus:border-primary text-sm leading-relaxed resize-none"
                 />
-                <div className="absolute bottom-3 right-3 text-xs text-slate-500 font-mono">
+                <div className="absolute bottom-3 right-3 text-xs text-muted font-mono">
                   {jobDescription.length} chars
                 </div>
               </div>
@@ -332,11 +328,11 @@ const Analyze = () => {
           <button
             type="submit"
             disabled={analyzing}
-            className="w-full sm:w-auto px-10 py-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 hover:from-indigo-500 hover:to-purple-500 text-white text-base font-extrabold rounded-2xl shadow-xl shadow-indigo-600/30 transition-all duration-300 flex items-center justify-center gap-3 mx-auto disabled:opacity-50 hover:scale-[1.01]"
+            className="button button-primary w-full sm:w-auto px-10 py-4 text-white text-base font-medium rounded-md transition-colors flex items-center justify-center gap-3 mx-auto disabled:opacity-50"
           >
             {analyzing ? (
               <div className="flex items-center gap-3">
-                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <div className="w-5 h-5 border-2 border-line border-t-white rounded-full animate-spin" />
                 <span>
                   {analysisStep === 1 && 'Extracting & Parsing PDF text...'}
                   {analysisStep === 2 && 'Evaluating ATS Match with Gemini AI...'}
@@ -345,7 +341,7 @@ const Analyze = () => {
               </div>
             ) : (
               <>
-                <Sparkles className="w-5 h-5 text-indigo-300" />
+                <Sparkles className="w-5 h-5" />
                 <span>Analyze Resume Now</span>
               </>
             )}

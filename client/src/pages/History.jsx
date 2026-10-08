@@ -102,73 +102,73 @@ const History = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-extrabold tracking-tight text-white flex items-center gap-3">
-            <HistoryIcon className="w-8 h-8 text-indigo-400" />
-            Analysis History
+          <h1 className="text-3xl font-medium tracking-tight text-main flex items-center gap-3">
+            <HistoryIcon className="w-8 h-8 text-primary" />
+            Analysis history
           </h1>
-          <p className="text-slate-400 text-sm mt-1">Review your past ATS resume checks and track score progress</p>
+          <p className="text-muted text-sm mt-1">Review your past ATS resume checks and track score progress</p>
         </div>
         <Link
           to="/analyze"
-          className="px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold rounded-xl text-sm shadow-lg shadow-indigo-600/30 flex items-center gap-2 transition-all self-start sm:self-auto"
+          className="button button-primary px-5 py-2.5 text-white font-medium rounded-md text-sm flex items-center gap-2 transition-colors self-start sm:self-auto"
         >
           <PlusCircle className="w-4 h-4" />
-          <span>New Analysis</span>
+          <span>New analysis</span>
         </Link>
       </div>
 
       {/* Overview Stat Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-        <div className="glass-panel p-5 rounded-2xl border border-slate-800 flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 flex items-center justify-center">
+        <div className="glass-panel p-5 rounded-2xl border border-line flex items-center gap-4">
+          <div className="w-12 h-12 rounded-md bg-page text-primary border border-line flex items-center justify-center">
             <FileText className="w-6 h-6" />
           </div>
           <div>
-            <p className="text-xs font-semibold text-slate-400 uppercase">Total Analyses</p>
-            <p className="text-2xl font-extrabold text-white mt-0.5">{total}</p>
+            <p className="text-xs font-medium text-muted">Total analyses</p>
+            <p className="text-2xl font-medium text-main mt-0.5">{total}</p>
           </div>
         </div>
 
-        <div className="glass-panel p-5 rounded-2xl border border-slate-800 flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 flex items-center justify-center">
+        <div className="glass-panel p-5 rounded-2xl border border-line flex items-center gap-4">
+          <div className="w-12 h-12 rounded-md bg-page text-primary border border-line flex items-center justify-center">
             <TrendingUp className="w-6 h-6" />
           </div>
           <div>
-            <p className="text-xs font-semibold text-slate-400 uppercase">Average ATS Score</p>
-            <p className="text-2xl font-extrabold text-white mt-0.5">{avgScore}%</p>
+            <p className="text-xs font-medium text-muted">Average ATS score</p>
+            <p className="text-2xl font-medium text-main mt-0.5">{avgScore}%</p>
           </div>
         </div>
 
-        <div className="glass-panel p-5 rounded-2xl border border-slate-800 flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center">
+        <div className="glass-panel p-5 rounded-2xl border border-line flex items-center gap-4">
+          <div className="w-12 h-12 rounded-md bg-page text-muted border border-line flex items-center justify-center">
             <Award className="w-6 h-6" />
           </div>
           <div>
-            <p className="text-xs font-semibold text-slate-400 uppercase">Best Score Achieved</p>
-            <p className="text-2xl font-extrabold text-white mt-0.5">{maxScore}%</p>
+            <p className="text-xs font-medium text-muted">Best score</p>
+            <p className="text-2xl font-medium text-main mt-0.5">{maxScore}%</p>
           </div>
         </div>
       </div>
 
       {/* Score-over-Time Trend Chart */}
       {chartData.length > 1 && (
-        <div className="glass-panel p-6 rounded-2xl border border-slate-800 space-y-4">
-          <h2 className="text-base font-bold text-white">{selectedAnalyses.length === 2 ? 'Selected Analysis Score Comparison' : 'Score Progress Over Time'}</h2>
+        <div className="glass-panel p-6 rounded-2xl border border-line space-y-4">
+          <h2 className="text-base font-medium text-main">{selectedAnalyses.length === 2 ? 'Selected analysis score comparison' : 'Score progress over time'}</h2>
           <div className="w-full h-56">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={comparisonChartData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                <XAxis dataKey="date" stroke="#64748b" tick={{ fill: '#64748b', fontSize: 12 }} />
-                <YAxis domain={[0, 100]} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 12 }} />
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--line)" />
+                <XAxis dataKey="date" stroke="var(--muted)" tick={{ fill: 'var(--text)', fontSize: 12 }} />
+                <YAxis domain={[0, 100]} stroke="var(--muted)" tick={{ fill: 'var(--text)', fontSize: 12 }} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '12px', color: '#fff' }}
+                  contentStyle={{ backgroundColor: 'var(--surface)', borderColor: 'var(--line)', borderRadius: '8px', color: 'var(--text)' }}
                 />
                 <Line
                   type="monotone"
                   dataKey="score"
-                  stroke="#818cf8"
-                  strokeWidth={3}
-                  dot={{ r: 5, fill: '#6366f1' }}
+                  stroke="var(--primary)"
+                  strokeWidth={2}
+                  dot={{ r: 4, fill: 'var(--primary)' }}
                   activeDot={{ r: 8 }}
                 />
               </LineChart>
@@ -183,72 +183,72 @@ const History = () => {
         </div>
         {selectedAnalyses.length === 2
           ? <div className="analysis-compare-results">
-            {selectedAnalyses.map((item) => <article key={item.id}><small>{new Date(item.createdAt).toLocaleDateString()}</small><strong>{item.jobTitle}</strong><span>{item.overallScore}%</span></article>)}
-            <div className={`analysis-score-delta ${scoreDelta >= 0 ? 'delta-up' : 'delta-down'}`}><span>Score change</span><strong>{scoreDelta > 0 ? '+' : ''}{scoreDelta}%</strong></div>
+            {selectedAnalyses.map((item) => <article key={item.id}><small>{new Date(item.createdAt).toLocaleDateString()}</small><span>{item.jobTitle}</span><span>{item.overallScore}%</span></article>)}
+            <div className={`analysis-score-delta ${scoreDelta >= 0 ? 'delta-up' : 'delta-down'}`}><span>Score change</span><span>{scoreDelta > 0 ? '+' : ''}{scoreDelta}%</span></div>
           </div>
           : <p className="analysis-compare-hint">Choose exactly two analyses in the list below.</p>}
       </section>
 
       {/* Search Bar */}
       <div className="relative">
-        <Search className="w-4 h-4 text-slate-400 absolute left-4 top-3.5" />
+        <Search className="w-4 h-4 text-muted absolute left-4 top-3.5" />
         <input
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Filter by job title, resume filename, or mode..."
-          className="w-full pl-11 pr-4 py-3 bg-slate-900/80 border border-slate-700/80 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500 text-sm"
+          className="w-full pl-11 pr-4 py-3 bg-surface border border-line rounded-xl text-main placeholder-muted focus:outline-none focus:border-primary text-sm"
         />
       </div>
 
       {/* Table / List */}
       {loading ? (
         <div className="py-12 text-center">
-          <div className="w-8 h-8 border-2 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin mx-auto mb-2"></div>
-          <p className="text-slate-400 text-xs">Loading history...</p>
+          <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin mx-auto mb-2"></div>
+          <p className="text-muted text-xs">Loading history...</p>
         </div>
       ) : filteredAnalyses.length === 0 ? (
-        <div className="glass-panel p-12 rounded-2xl border border-slate-800 text-center space-y-4">
-          <div className="w-16 h-16 rounded-full bg-slate-900 text-slate-500 flex items-center justify-center mx-auto">
+        <div className="glass-panel p-12 rounded-2xl border border-line text-center space-y-4">
+          <div className="w-16 h-16 rounded-full bg-surface text-muted flex items-center justify-center mx-auto">
             <HistoryIcon className="w-8 h-8" />
           </div>
-          <h3 className="text-lg font-bold text-white">No Analysis Records Found</h3>
-          <p className="text-slate-400 text-sm max-w-sm mx-auto">
+          <h3 className="text-lg font-medium text-main">No analysis records found</h3>
+          <p className="text-muted text-sm max-w-sm mx-auto">
             You haven't run any resume checks yet. Upload a resume to get your first ATS score!
           </p>
           <Link
             to="/analyze"
-            className="inline-flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl transition-colors"
+            className="button button-primary inline-flex items-center gap-2 px-6 py-2.5 text-white text-xs font-medium rounded-md transition-colors"
           >
             Start First Analysis
           </Link>
         </div>
       ) : (
-        <div className="glass-panel rounded-2xl border border-slate-800 overflow-hidden shadow-xl">
+        <div className="glass-panel rounded-2xl border border-line overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm text-slate-300">
-              <thead className="bg-slate-900/80 text-xs font-bold uppercase text-slate-400 border-b border-slate-800">
+            <table className="w-full text-left text-sm text-main">
+              <thead className="bg-surface text-xs font-medium  text-muted border-b border-line">
                 <tr>
                   <th className="py-4 px-4">Compare</th>
-                  <th className="py-4 px-6">Job Title</th>
+                  <th className="py-4 px-6">Job title</th>
                   <th className="py-4 px-6">Mode</th>
-                  <th className="py-4 px-6">Resume File</th>
+                  <th className="py-4 px-6">Resume file</th>
                   <th className="py-4 px-6">Score</th>
                   <th className="py-4 px-6">Date</th>
                   <th className="py-4 px-6 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y border-line">
                 {filteredAnalyses.map((item) => {
-                  let badgeColor = 'bg-emerald-950/80 text-emerald-300 border-emerald-500/40';
-                  if (item.overallScore < 60) badgeColor = 'bg-rose-950/80 text-rose-300 border-rose-500/40';
-                  else if (item.overallScore < 80) badgeColor = 'bg-amber-950/80 text-amber-300 border-amber-500/40';
+                  let badgeColor = 'bg-success/10 text-success border-success/30';
+                  if (item.overallScore < 60) badgeColor = 'bg-error/10 text-error border-error/30';
+                  else if (item.overallScore < 80) badgeColor = 'bg-warning/10 text-warning border-warning/30';
 
                   return (
                     <tr
                       key={item.id}
                       onClick={() => window.location.href = `/result/${item.id}`}
-                      className="hover:bg-slate-900/50 cursor-pointer transition-colors"
+                      className="hover:bg-page cursor-pointer transition-colors"
                     >
                       <td className="py-4 px-4" onClick={(event) => event.stopPropagation()}>
                         <input
@@ -261,32 +261,32 @@ const History = () => {
                             : current.length < 2 ? [...current, item.id] : current)}
                         />
                       </td>
-                      <td className="py-4 px-6 font-semibold text-white">{item.jobTitle}</td>
+                      <td className="py-4 px-6 font-medium text-main">{item.jobTitle}</td>
                       <td className="py-4 px-6">
-                        <span className="text-xs uppercase font-extrabold px-2.5 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-300">
+                        <span className="text-xs  font-medium px-2.5 py-0.5 rounded-full bg-surface border border-line text-main">
                           {item.mode}
                         </span>
                       </td>
-                      <td className="py-4 px-6 text-slate-400 text-xs truncate max-w-[180px]">{item.resumeFileName}</td>
+                      <td className="py-4 px-6 text-muted text-xs truncate max-w-[180px]">{item.resumeFileName}</td>
                       <td className="py-4 px-6">
-                        <span className={`px-2.5 py-1 rounded-lg border text-xs font-extrabold ${badgeColor}`}>
+                        <span className={`px-2.5 py-1 rounded-lg border text-xs font-medium ${badgeColor}`}>
                           {item.overallScore}%
                         </span>
                       </td>
-                      <td className="py-4 px-6 text-slate-400 text-xs">
+                      <td className="py-4 px-6 text-muted text-xs">
                         {new Date(item.createdAt).toLocaleDateString()}
                       </td>
                       <td className="py-4 px-6 text-right space-x-2" onClick={(e) => e.stopPropagation()}>
                         <Link
                           to={`/result/${item.id}`}
-                          className="inline-flex items-center gap-1 p-2 bg-indigo-600/20 text-indigo-300 hover:bg-indigo-600/40 rounded-lg text-xs font-semibold transition-colors"
+                          className="inline-flex items-center gap-1 p-2 bg-page text-primary hover:bg-surface rounded-md text-xs font-medium transition-colors"
                         >
                           <Eye className="w-3.5 h-3.5" />
                           <span>View</span>
                         </Link>
                         <button
                           onClick={(e) => handleDelete(item.id, e)}
-                          className="p-2 bg-rose-950/40 text-rose-400 hover:bg-rose-900/60 rounded-lg text-xs font-semibold transition-colors"
+                          className="p-2 bg-page text-error hover:bg-surface rounded-md text-xs font-medium transition-colors"
                           title="Delete"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -301,20 +301,20 @@ const History = () => {
 
           {/* Pagination Controls */}
           {pages > 1 && (
-            <div className="p-4 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
+            <div className="p-4 border-t border-line flex items-center justify-between text-xs text-muted">
               <span>Page {page} of {pages}</span>
               <div className="flex gap-2">
                 <button
                   disabled={page <= 1}
                   onClick={() => setPage(page - 1)}
-                  className="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-200 rounded-lg border border-slate-700 disabled:opacity-40"
+                  className="px-3 py-1.5 bg-surface hover:bg-page text-main rounded-lg border border-line disabled:opacity-40"
                 >
                   Previous
                 </button>
                 <button
                   disabled={page >= pages}
                   onClick={() => setPage(page + 1)}
-                  className="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-200 rounded-lg border border-slate-700 disabled:opacity-40"
+                  className="px-3 py-1.5 bg-surface hover:bg-page text-main rounded-lg border border-line disabled:opacity-40"
                 >
                   Next
                 </button>

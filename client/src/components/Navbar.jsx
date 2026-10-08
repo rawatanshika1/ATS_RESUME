@@ -56,7 +56,7 @@ const Navbar = () => {
           <span className="sidebar-brand-icon"><FileText size={19} /></span>
           <span>Resume<span className="brand-accent">ly</span></span>
         </Link>
-        <p className="sidebar-label">WORKSPACE</p>
+        <p className="sidebar-label">Workspace</p>
         <nav className="sidebar-links">
           {navigation.map(({ label, path, icon: Icon }) => (
             <Link key={path} to={path} className={`sidebar-link ${location.pathname === path || (path === '/builder' && location.pathname.startsWith('/builder')) ? 'active' : ''}`}>
@@ -67,7 +67,7 @@ const Navbar = () => {
         <div className="sidebar-bottom">
           <div className="sidebar-profile">
             <span className="profile-avatar">{user?.name?.charAt(0)?.toUpperCase() || 'U'}</span>
-            <span className="profile-details"><strong>{user?.name || 'Your account'}</strong><small>{user?.email || 'Signed in'}</small></span>
+            <span className="profile-details"><span>{user?.name || 'Your account'}</span><small>{user?.email || 'Signed in'}</small></span>
           </div>
           <button className="sidebar-link sidebar-logout" onClick={handleLogout} type="button"><LogOut size={18} /><span>Sign out</span></button>
         </div>

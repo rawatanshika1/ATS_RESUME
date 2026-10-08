@@ -2,6 +2,7 @@ const assert = require('assert');
 const express = require('express');
 const http = require('http');
 const errorHandler = require('../middleware/errorHandler');
+const createAiServiceError = require('../utils/aiServiceError');
 
 const app = express();
 app.use(express.json());
@@ -12,6 +13,12 @@ app.post('/error/:type', (req, res, next) => {
     error.statusCode = 502;
     error.isAiServiceError = true;
     return next(error);
+  }
+  if (req.params.type === 'ai-upstream') {
+    return next(createAiServiceError(Object.assign(
+      new Error('Private Google response details must not be exposed.'),
+      { status: 429 }
+    )));
   }
   if (req.params.type === 'internal') return next(new Error('Private internal details.'));
   return res.json({ success: true });
@@ -58,12 +65,17 @@ async function run() {
     assert.match(ai.body.message, /could not complete this request/i);
     assert.strictEqual(JSON.stringify(ai.body).includes('Private upstream details'), false);
 
+    const aiUpstream = await request(server, '/error/ai-upstream');
+    assert.strictEqual(aiUpstream.status, 502);
+    assert.match(aiUpstream.body.message, /rate limited.*429/i);
+    assert.strictEqual(JSON.stringify(aiUpstream.body).includes('Private Google response details'), false);
+
     const internal = await request(server, '/error/internal');
     assert.strictEqual(internal.status, 500);
     assert.strictEqual(internal.body.message, 'An unexpected server error occurred. Please try again.');
     assert.strictEqual(JSON.stringify(internal.body).includes('Private internal details'), false);
 
-    console.log('Error handling status, friendly messages, and response redaction tests passed.');
+    console.info('Error handling status, friendly messages, and response redaction tests passed.');
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }

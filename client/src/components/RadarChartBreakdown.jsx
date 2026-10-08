@@ -22,15 +22,15 @@ const RadarChartBreakdown = ({ breakdown = {} }) => {
       <ResponsiveContainer width="100%" height="100%">
         <RadarChart cx="50%" cy="50%" outerRadius="75%" data={data}>
           <PolarGrid stroke="var(--line)" />
-          <PolarAngleAxis dataKey="subject" stroke="var(--muted)" tick={{ fill: 'var(--muted)', fontSize: 11 }} />
+          <PolarAngleAxis dataKey="subject" stroke="var(--text)" tick={{ fill: 'var(--text)', fontSize: 11 }} />
           <PolarRadiusAxis angle={30} domain={[0, 100]} stroke="var(--line)" tick={{ fill: 'var(--muted)', fontSize: 9 }} />
           <Radar
             name="Score"
             dataKey="score"
-            stroke="var(--accent)"
-            fill="var(--accent)"
-            fillOpacity={0.4}
-            dot={{ r: 4, fill: 'var(--accent)' }}
+            stroke="var(--primary)"
+            fill="var(--primary)"
+            fillOpacity={0.18}
+            dot={{ r: 3, fill: 'var(--primary)' }}
           />
         </RadarChart>
       </ResponsiveContainer>

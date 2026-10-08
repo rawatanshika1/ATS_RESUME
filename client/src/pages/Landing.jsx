@@ -7,15 +7,9 @@ import { useTheme } from '../context/ThemeContext';
 function BrandMark({ className = '' }) {
   return (
     <svg className={className} viewBox="0 0 48 48" fill="none" aria-hidden="true">
-      <rect x="3" y="3" width="42" height="42" rx="15" fill="url(#brand-gradient)" />
+      <rect x="3" y="3" width="42" height="42" rx="8" fill="var(--primary)" />
       <path d="M15 32V16h5.2l8.1 10.2V16H33v16h-5.1l-8.2-10.3V32H15Z" fill="white" />
-      <path d="M35.2 11.5v5.2m-2.6-2.6h5.2" stroke="#C4B5FD" strokeWidth="2" strokeLinecap="round" />
-      <defs>
-        <linearGradient id="brand-gradient" x1="3" y1="3" x2="45" y2="45" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#8272F4" />
-          <stop offset="1" stopColor="#5040C8" />
-        </linearGradient>
-      </defs>
+      <path d="M35.2 11.5v5.2m-2.6-2.6h5.2" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" />
     </svg>
   );
 }
@@ -45,16 +39,16 @@ const Landing = () => {
         <div className="hero-orb hero-orb-one" />
         <div className="hero-orb hero-orb-two" />
         <div className="hero-content">
-          <span className="hero-eyebrow"><span className="eyebrow-dot" /> YOUR NEXT CHAPTER STARTS HERE</span>
+          <span className="hero-eyebrow"><span className="eyebrow-dot" /> Your next chapter starts here</span>
           <BrandMark className="hero-logo" />
           <h1>Make your next<br /><span>move your best.</span></h1>
           <p>Thoughtful tools to help your experience stand out, get noticed, and land the role you deserve.</p>
           <Link className="button button-primary hero-cta" to={isAuthenticated ? '/app' : '/register'}>
-            Get Started <ArrowRight size={18} />
+            Get started <ArrowRight size={18} />
           </Link>
           <div className="hero-proof"><Check size={15} /> A clearer path from application to opportunity</div>
         </div>
-        <div className="hero-note"><span className="hero-note-icon">✦</span><span><strong>Made for your next move</strong><small>Less guesswork. More confidence.</small></span></div>
+        <div className="hero-note"><span><span>Made for your next move</span><small>Less guesswork. More confidence.</small></span></div>
       </section>
 
       <section className="landing-benefits" aria-label="How Resume.ly helps">

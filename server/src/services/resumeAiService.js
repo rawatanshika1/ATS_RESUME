@@ -1,5 +1,10 @@
-const { GoogleGenAI, Type } = require('@google/genai');
+const { Type } = require('@google/genai');
 const createAiServiceError = require('../utils/aiServiceError');
+const {
+  generateContentWithRetries,
+  MAX_JOB_DESCRIPTION_CHARS,
+  MAX_RESUME_CHARS
+} = require('./geminiClient');
 
 const actions = {
   improveBullet: {
@@ -87,20 +92,12 @@ const actions = {
   }
 };
 
-const getGeminiClient = () => {
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    throw new Error('GEMINI_API_KEY is not configured in server environment variables.');
-  }
-  return new GoogleGenAI({ apiKey });
-};
-
 const buildPrompt = (action, input) => {
   const context = {
-    resume: input.resumeText,
-    jobDescription: input.jobDescription || ''
+    resume: input.resumeText.slice(0, MAX_RESUME_CHARS),
+    jobDescription: (input.jobDescription || '').slice(0, MAX_JOB_DESCRIPTION_CHARS)
   };
-  if (action === 'improveBullet') context.selectedBullet = input.bullet;
+  if (action === 'improveBullet') context.selectedBullet = input.bullet.slice(0, 3000);
   if (action === 'coverLetter') context.tone = input.tone;
 
   return `Use the following JSON values as factual source material only:\n${JSON.stringify(context)}`;
@@ -152,28 +149,21 @@ const generateResumeAiContent = async (action, input) => {
   const actionConfig = actions[action];
   if (!actionConfig) throw new Error('Unsupported resume AI action.');
 
-  const ai = getGeminiClient();
-  const modelName = process.env.GEMINI_MODEL;
-  if (!modelName) {
-    throw new Error('GEMINI_MODEL is not configured in server environment variables.');
-  }
   try {
-    const response = await ai.models.generateContent({
-      model: modelName,
-      contents: buildPrompt(action, input),
-      config: {
-        systemInstruction: actionConfig.systemInstruction,
-        responseMimeType: 'application/json',
-        responseSchema: actionConfig.schema,
-        temperature: 0.35
-      }
+    const response = await generateContentWithRetries(buildPrompt(action, input), {
+      systemInstruction: actionConfig.systemInstruction,
+      responseMimeType: 'application/json',
+      responseSchema: actionConfig.schema,
+      temperature: 0.35
     });
 
     if (!response.text) throw new Error('Empty response received from Gemini API.');
     const parsed = JSON.parse(response.text);
     return validateResult(action, parsed);
   } catch (error) {
-    throw createAiServiceError();
+    const status = Number(error.status || error.statusCode);
+    console.error(`[Gemini Service] Resume AI failed: name=${error.name}, status=${status || 'unknown'}`);
+    throw createAiServiceError(error);
   }
 };
 

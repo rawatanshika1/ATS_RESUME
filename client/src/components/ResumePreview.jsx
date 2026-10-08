@@ -21,27 +21,27 @@ function ResumePreview({ resume, previewRef }) {
       {skills.length > 0 && <section className="resume-paper-section"><h2>Skills</h2><p>{skills.join('  ·  ')}</p></section>}
       {hasEntries(experience) && <section className="resume-paper-section"><h2>Experience</h2>{experience.filter((item) => Object.values(item).some(Boolean)).map((item, index) => (
         <div className="resume-entry" key={`experience-${index}`}>
-          <div className="resume-entry-heading"><strong>{item.role || 'Position'}</strong><span>{formatPeriod(item.startDate, item.endDate)}</span></div>
+          <div className="resume-entry-heading"><span>{item.role || 'Position'}</span><span>{formatPeriod(item.startDate, item.endDate)}</span></div>
           <p className="resume-entry-subheading">{[item.company, item.location].filter(Boolean).join(' · ')}</p>
           {item.description && <p className="resume-entry-description">{item.description}</p>}
         </div>
       ))}</section>}
       {hasEntries(projects) && <section className="resume-paper-section"><h2>Projects</h2>{projects.filter((item) => Object.values(item).some(Boolean)).map((item, index) => (
         <div className="resume-entry" key={`project-${index}`}>
-          <div className="resume-entry-heading"><strong>{item.name || 'Project'}</strong>{item.link && <span>{item.link}</span>}</div>
+          <div className="resume-entry-heading"><span>{item.name || 'Project'}</span>{item.link && <span>{item.link}</span>}</div>
           {item.description && <p className="resume-entry-description">{item.description}</p>}
         </div>
       ))}</section>}
       {hasEntries(education) && <section className="resume-paper-section"><h2>Education</h2>{education.filter((item) => Object.values(item).some(Boolean)).map((item, index) => (
         <div className="resume-entry" key={`education-${index}`}>
-          <div className="resume-entry-heading"><strong>{item.degree || 'Degree'}</strong><span>{formatPeriod(item.startDate, item.endDate)}</span></div>
+          <div className="resume-entry-heading"><span>{item.degree || 'Degree'}</span><span>{formatPeriod(item.startDate, item.endDate)}</span></div>
           <p className="resume-entry-subheading">{[item.school, item.location].filter(Boolean).join(' · ')}</p>
           {item.description && <p className="resume-entry-description">{item.description}</p>}
         </div>
       ))}</section>}
       {hasEntries(certifications) && <section className="resume-paper-section"><h2>Certifications</h2>{certifications.filter((item) => Object.values(item).some(Boolean)).map((item, index) => (
         <div className="resume-entry" key={`certification-${index}`}>
-          <div className="resume-entry-heading"><strong>{item.name || 'Certification'}</strong><span>{item.date}</span></div>
+          <div className="resume-entry-heading"><span>{item.name || 'Certification'}</span><span>{item.date}</span></div>
           {item.issuer && <p className="resume-entry-subheading">{item.issuer}</p>}
         </div>
       ))}</section>}

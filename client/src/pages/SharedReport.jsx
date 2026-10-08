@@ -33,12 +33,12 @@ const SharedReport = () => {
   return (
     <main className="shared-report-page">
       <header className="shared-report-header">
-        <div><span className="section-kicker">READ-ONLY SHARED REPORT</span><h1>{report.jobTitle}</h1><p>{report.mode} analysis · {new Date(report.createdAt).toLocaleDateString()}</p></div>
+        <div><span className="section-kicker">Read-only shared report</span><h1>{report.jobTitle}</h1><p>{report.mode} analysis · {new Date(report.createdAt).toLocaleDateString()}</p></div>
         <span className="shared-report-badge">Shared ATS report</span>
       </header>
       <p className="shared-report-privacy">This share link contains analysis findings only. Resume text, contact details, and the job description are not shared.</p>
       <section className="shared-report-score">
-        <div className="glass-panel shared-score-gauge"><ScoreGauge score={result.overallScore} size={175} /><strong>Overall ATS score</strong></div>
+        <div className="glass-panel shared-score-gauge"><ScoreGauge score={result.overallScore} size={175} /><span>Overall ATS score</span></div>
         <div className="glass-panel shared-score-summary"><h2>Recruiter summary</h2><p>{result.summary}</p><h3>Key strengths</h3><ul>{(result.strengths || []).map((strength, index) => <li key={`${strength}-${index}`}>{strength}</li>)}</ul></div>
         <div className="glass-panel shared-score-radar"><h2>Score breakdown</h2><RadarChartBreakdown breakdown={result.breakdown || {}} /></div>
       </section>

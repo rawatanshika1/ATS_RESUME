@@ -4,14 +4,14 @@ const { parsePdfBuffer } = require('../services/pdfService');
 const { checkParseability } = require('../utils/parseabilityUtils');
 
 async function runUnitTests() {
-  console.log('🧪 RUNNING UNIT TESTS FOR PDF SERVICE & SCORE CLAMPING...');
+  console.info('🧪 RUNNING UNIT TESTS FOR PDF SERVICE & SCORE CLAMPING...');
 
   // Test 1: clampScore limits
   assert.strictEqual(clampScore(120), 100, 'Score > 100 should clamp to 100');
   assert.strictEqual(clampScore(-15), 0, 'Score < 0 should clamp to 0');
   assert.strictEqual(clampScore(84.7), 85, 'Score should round to integer');
   assert.strictEqual(clampScore(null, 50), 50, 'Null score should return fallback');
-  console.log('✅ 1. clampScore tests passed.');
+  console.info('✅ 1. clampScore tests passed.');
 
   // Test 2: sanitizeAnalysisResult
   const mockRawGeminiOutput = {
@@ -34,14 +34,14 @@ async function runUnitTests() {
   assert.strictEqual(sanitized.overallScore, 100, 'Overall score should clamp to 100');
   assert.strictEqual(sanitized.breakdown.skillsMatch, 0, 'Skills match -10 should clamp to 0');
   assert.strictEqual(sanitized.missingKeywords[0].importance, 'high', 'Importance should normalize to lowercase');
-  console.log('✅ 2. sanitizeAnalysisResult tests passed.');
+  console.info('✅ 2. sanitizeAnalysisResult tests passed.');
 
   // Test 3: safeJsonParse
   const jsonWithMarkdown = '```json\n{"overallScore": 85}\n```';
   const parsed = safeJsonParse(jsonWithMarkdown);
   assert.strictEqual(parsed.overallScore, 85, 'Safe JSON parse should handle markdown codeblocks');
   assert.throws(() => safeJsonParse('{not valid JSON'), SyntaxError, 'Malformed JSON must not be accepted as valid data');
-  console.log('✅ 3. safeJsonParse tests passed.');
+  console.info('✅ 3. safeJsonParse tests passed.');
 
   // Test 4: ATS parseability checklist uses stable, transparent status values
   const checklistResume = [
@@ -62,7 +62,7 @@ async function runUnitTests() {
   assert.strictEqual(checklist.find((check) => check.id === 'action-verbs').status, 'pass');
   const emptyChecklist = checkParseability('');
   assert.strictEqual(emptyChecklist.find((check) => check.id === 'headings').status, 'fail');
-  console.log('✅ 4. ATS parseability checklist tests passed.');
+  console.info('✅ 4. ATS parseability checklist tests passed.');
 
   // Test 5: PDF Service invalid/scanned rejection
   try {
@@ -72,10 +72,10 @@ async function runUnitTests() {
     assert.fail('Should have thrown an error for empty/unparseable PDF');
   } catch (err) {
     assert.ok(err.message.includes('No readable text found'), 'Should reject scanned/empty PDF with exact expected error message');
-    console.log('✅ 5. PDF Service rejection test passed.');
+    console.info('✅ 5. PDF Service rejection test passed.');
   }
 
-  console.log('🎉 ALL UNIT TESTS PASSED SUCCESSFULLY!');
+  console.info('🎉 ALL UNIT TESTS PASSED SUCCESSFULLY!');
 }
 
 runUnitTests().catch((err) => {

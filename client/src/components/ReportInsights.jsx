@@ -35,7 +35,7 @@ const ReportInsights = ({ parseability = [], resumeText = '', matchedKeywords = 
             return (
               <article className={`parseability-item status-${check.status}`} key={check.id}>
                 <Icon size={17} />
-                <div><strong>{check.label}</strong><p>{check.detail}</p></div>
+                <div><span>{check.label}</span><p>{check.detail}</p></div>
                 <span>{statusLabels[check.status] || 'Warn'}</span>
               </article>
             );
@@ -58,7 +58,7 @@ const ReportInsights = ({ parseability = [], resumeText = '', matchedKeywords = 
         <aside className="glass-panel keyword-missing-panel">
           <h2>Missing keywords <span>{missingKeywords.length}</span></h2>
           {missingKeywords.length
-            ? <ul>{missingKeywords.map((item, index) => <li key={`${item.keyword}-${index}`}><strong>{item.keyword}</strong><span className={`keyword-priority priority-${item.importance}`}>{item.importance}</span></li>)}</ul>
+            ? <ul>{missingKeywords.map((item, index) => <li key={`${item.keyword}-${index}`}><span>{item.keyword}</span><span className={`keyword-priority priority-${item.importance}`}>{item.importance}</span></li>)}</ul>
             : <p>No missing keywords were identified.</p>}
         </aside>
       </section>
