@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
+import WaveBackground from './components/WaveBackground';
 
 const Analyze = lazy(() => import('./pages/Analyze'));
 const Dashboard = lazy(() => import('./pages/Dashboard'));
@@ -58,15 +59,18 @@ function Workspace() {
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Suspense fallback={<PageLoading />}><Landing /></Suspense>} />
-      <Route path="/login" element={<Suspense fallback={<PageLoading />}><Login /></Suspense>} />
-      <Route path="/register" element={<Suspense fallback={<PageLoading />}><Register /></Suspense>} />
-      <Route path="/shared-report/:token" element={<Suspense fallback={<PageLoading />}><SharedReport /></Suspense>} />
-      <Route element={<ProtectedRoute />}>
-        <Route path="/*" element={<Workspace />} />
-      </Route>
-    </Routes>
+    <>
+      <WaveBackground />
+      <Routes>
+        <Route path="/" element={<Suspense fallback={<PageLoading />}><Landing /></Suspense>} />
+        <Route path="/login" element={<Suspense fallback={<PageLoading />}><Login /></Suspense>} />
+        <Route path="/register" element={<Suspense fallback={<PageLoading />}><Register /></Suspense>} />
+        <Route path="/shared-report/:token" element={<Suspense fallback={<PageLoading />}><SharedReport /></Suspense>} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/*" element={<Workspace />} />
+        </Route>
+      </Routes>
+    </>
   );
 }
 

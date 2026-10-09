@@ -16,7 +16,11 @@ export default {
         success: 'var(--success)',
         warning: 'var(--warning)',
         'warning-text': 'var(--warning-text)',
-        error: 'var(--error)'
+        error: 'var(--error)',
+        'surface-solid': 'var(--surface)',
+        'surface-glass': 'var(--surface-glass)',
+        'button-primary': 'var(--button-primary-bg)',
+        'button-primary-text': 'var(--button-primary-text)'
       }
     }
   }

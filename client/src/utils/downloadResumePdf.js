@@ -32,7 +32,7 @@ export function createResumePdf(resume) {
     }
   };
 
-  const writeText = (value, { size = 9, style = 'normal', color = bodyText, gap = 0, indent = 0, align } = {}) => {
+  const writeText = (value, { size = 11, style = 'normal', color = bodyText, gap = 0, indent = 0, align } = {}) => {
     if (!value) return;
     doc.setFont(template.font, style);
     doc.setFontSize(size);
@@ -51,12 +51,12 @@ export function createResumePdf(resume) {
     if (!entries.length) return;
     y += 8 * template.spacing;
     ensureRoom(26);
-    writeText(title, { size: 9, color: accent, gap: 3 });
+    writeText(title, { size: 11, color: accent, gap: 3 });
     doc.setDrawColor(...accent);
     doc.setLineWidth(0.55);
     doc.line(template.margin, y, pageWidth - template.margin, y);
     y += 5 * template.spacing;
-    entries.forEach((entry) => writeText(entry, { size: 9, gap: 4 * template.spacing }));
+    entries.forEach((entry) => writeText(entry, { size: 11, gap: 4 * template.spacing }));
   };
 
   const { personalInfo = {}, summary = '', skills = [], experience = [], projects = [], education = [], certifications = [] } = resume;
@@ -71,7 +71,7 @@ export function createResumePdf(resume) {
   const contacts = [personalInfo.email, personalInfo.phone, personalInfo.location, personalInfo.linkedin, personalInfo.website].filter(Boolean);
   if (contacts.length) {
     doc.setFont(template.font, 'normal');
-    doc.setFontSize(8);
+    doc.setFontSize(11);
     doc.setTextColor(...bodyText);
     const lines = doc.splitTextToSize(contacts.join('  |  '), contentWidth);
     doc.text(lines, template.centered ? pageWidth / 2 : template.margin, y + 8, { align: template.centered ? 'center' : 'left' });

@@ -56,7 +56,7 @@ const Register = () => {
         <div className="auth-card p-8 rounded-2xl">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="register-name" className="block text-xs font-medium text-main mb-2">Full name</label>
+              <label htmlFor="register-name" className="block text-sm font-medium text-main mb-2">Full name</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-muted">
                   <User className="w-4 h-4" />
@@ -74,7 +74,7 @@ const Register = () => {
             </div>
 
             <div>
-              <label htmlFor="register-email" className="block text-xs font-medium text-main mb-2">Email address</label>
+              <label htmlFor="register-email" className="block text-sm font-medium text-main mb-2">Email address</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-muted">
                   <Mail className="w-4 h-4" />
@@ -92,7 +92,7 @@ const Register = () => {
             </div>
 
             <div>
-              <label htmlFor="register-password" className="block text-xs font-medium text-main mb-2">Password</label>
+              <label htmlFor="register-password" className="block text-sm font-medium text-main mb-2">Password</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-muted">
                   <Lock className="w-4 h-4" />
@@ -133,7 +133,7 @@ const Register = () => {
             </button>
           </form>
 
-          <div className="mt-6 text-center text-xs text-muted border-t border-divider pt-5">
+          <div className="mt-6 text-center text-sm text-muted border-t border-divider pt-5">
             Already have an account?{' '}
             <Link to="/login" className="text-accent font-medium hover:underline">
               Sign in

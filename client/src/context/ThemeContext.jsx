@@ -3,7 +3,7 @@ import React, { createContext, useContext, useEffect, useMemo, useState } from '
 const ThemeContext = createContext(null);
 
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState(() => localStorage.getItem('ats_theme') || 'light');
+  const [theme, setTheme] = useState(() => localStorage.getItem('ats_theme') || 'dark');
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;

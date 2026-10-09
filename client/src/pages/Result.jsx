@@ -125,11 +125,11 @@ const Result = () => {
           <div>
             <div className="flex items-center gap-2">
               <h1 className="text-xl font-medium text-main">{jobTitle || 'Target position'}</h1>
-              <span className="text-xs  font-medium px-2.5 py-0.5 rounded-full bg-primary/20 text-primary border border-primary/30">
+              <span className="text-sm  font-medium px-2.5 py-0.5 rounded-full bg-primary/20 text-primary border border-primary/30">
                 {mode} mode
               </span>
             </div>
-            <p className="text-xs text-muted mt-1">
+            <p className="text-sm text-muted mt-1">
               File: <span className="text-main">{resumeFileName}</span> • Analyzed on {new Date(createdAt).toLocaleDateString()}
             </p>
           </div>
@@ -159,7 +159,7 @@ const Result = () => {
           </div>
           <button
             onClick={() => window.print()}
-            className="px-3.5 py-2 bg-surface hover:bg-page text-main rounded-xl border border-line text-xs font-medium flex items-center gap-2 transition-colors"
+            className="px-3.5 py-2 bg-surface hover:bg-page text-main rounded-xl border border-line text-sm font-medium flex items-center gap-2 transition-colors"
           >
             <Printer className="w-4 h-4" />
             <span>Print report</span>
@@ -167,7 +167,7 @@ const Result = () => {
 
           <button
             onClick={handleDelete}
-            className="px-3.5 py-2 bg-error/10 hover:bg-error/10 text-error rounded-xl border border-error/30 text-xs font-medium flex items-center gap-2 transition-colors"
+            className="px-3.5 py-2 bg-error/10 hover:bg-error/10 text-error rounded-xl border border-error/30 text-sm font-medium flex items-center gap-2 transition-colors"
           >
             <Trash2 className="w-4 h-4" />
             <span>Delete</span>
@@ -187,7 +187,7 @@ const Result = () => {
         {/* Left: Overall Score Gauge */}
         <div className="glass-panel p-6 rounded-2xl border border-line flex flex-col items-center justify-center text-center">
           <ScoreGauge score={overallScore} size={190} />
-          <p className="text-xs text-muted mt-4 max-w-xs leading-relaxed">
+          <p className="text-sm text-muted mt-4 max-w-xs leading-relaxed">
             Overall evaluation combining keyword density, skills alignment, formatting readability, and experience context.
           </p>
         </div>
@@ -203,10 +203,10 @@ const Result = () => {
           </div>
 
           <div className="mt-6 pt-4 border-t border-line">
-            <h4 className="text-xs font-medium text-muted mb-2">Key highlights</h4>
+            <h4 className="text-sm font-medium text-muted mb-2">Key highlights</h4>
             <ul className="space-y-1.5">
               {strengths && strengths.slice(0, 3).map((st, i) => (
-                <li key={i} className="text-xs text-main flex items-start gap-2">
+                <li key={i} className="text-sm text-main flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-success shrink-0 mt-0.5" />
                   <span>{st}</span>
                 </li>
@@ -219,7 +219,7 @@ const Result = () => {
         <div className="glass-panel p-6 rounded-2xl border border-line flex flex-col items-center justify-between">
           <h2 className="font-medium text-main text-base self-start mb-2">Score breakdown</h2>
           <RadarChartBreakdown breakdown={breakdown} />
-          <div className="w-full grid grid-cols-2 gap-2 text-center text-xs mt-2 pt-2 border-t border-line">
+          <div className="w-full grid grid-cols-2 gap-2 text-center text-sm mt-2 pt-2 border-t border-line">
             <div>
               <span className="text-muted">Keywords:</span>{' '}
               <span className="font-medium text-main">{breakdown.keywordMatch}%</span>
@@ -253,7 +253,7 @@ const Result = () => {
           }`}
         >
           <span>Improvement suggestions</span>
-          <span className="px-2 py-0.5 rounded-full bg-primary/20 text-primary text-xs">
+          <span className="px-2 py-0.5 rounded-full bg-primary/20 text-primary text-sm">
             {suggestions?.length || 0}
           </span>
         </button>
@@ -286,13 +286,13 @@ const Result = () => {
                 matchedKeywords.map((kw, i) => (
                   <span
                     key={i}
-                    className="keyword-match-chip px-3 py-1.5 rounded-md bg-page border border-line text-muted text-xs"
+                    className="keyword-match-chip px-3 py-1.5 rounded-md bg-page border border-line text-muted text-sm"
                   >
                     ✓ {kw}
                   </span>
                 ))
               ) : (
-                <p className="text-xs text-muted">No specific matched keywords detected.</p>
+                <p className="text-sm text-muted">No specific matched keywords detected.</p>
               )}
             </div>
           </div>
@@ -317,11 +317,11 @@ const Result = () => {
                       <div>
                         <div className="flex items-center gap-2">
                           <span className="font-medium text-sm">{item.keyword}</span>
-                          <span className="text-[10px]   font-medium px-1.5 py-0.5 rounded bg-page">
+                          <span className="text-sm   font-medium px-1.5 py-0.5 rounded bg-page">
                             {item.importance} priority
                           </span>
                         </div>
-                        <p className="text-xs mt-1 text-main">
+                        <p className="text-sm mt-1 text-main">
                           Where to add: <span className="font-medium italic">{item.whereToAdd}</span>
                         </p>
                       </div>
@@ -329,7 +329,7 @@ const Result = () => {
                   );
                 })
               ) : (
-                <p className="text-xs text-muted">No missing keywords! Excellent keyword coverage.</p>
+                <p className="text-sm text-muted">No missing keywords! Excellent keyword coverage.</p>
               )}
             </div>
           </div>
@@ -344,7 +344,7 @@ const Result = () => {
               <Lightbulb className="w-5 h-5 text-warning" />
               Tailored improvement suggestions
             </h3>
-            <span className="text-xs text-muted">Click any card to view detailed before/after rewrite</span>
+            <span className="text-sm text-muted">Click any card to view detailed before/after rewrite</span>
           </div>
 
           {suggestions && suggestions.map((sug, idx) => {
@@ -359,7 +359,7 @@ const Result = () => {
                   className="p-5 flex items-center justify-between cursor-pointer hover:bg-page transition-colors"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="px-2.5 py-1 rounded-lg bg-primary/20 text-primary text-xs font-medium  border border-primary/30">
+                    <span className="px-2.5 py-1 rounded-lg bg-primary/20 text-primary text-sm font-medium  border border-primary/30">
                       {sug.section}
                     </span>
                     <h4 className="font-medium text-main text-sm sm:text-base">{sug.issue}</h4>
@@ -373,19 +373,19 @@ const Result = () => {
                 {isExpanded && (
                   <div className="p-5 pt-0 border-t border-line bg-surface space-y-4">
                     <div className="pt-3">
-                      <p className="text-xs  font-medium text-muted  mb-1">Recommendation</p>
+                      <p className="text-sm  font-medium text-muted  mb-1">Recommendation</p>
                       <p className="text-sm text-main leading-relaxed">{sug.improvement}</p>
                     </div>
 
                     {sug.exampleRewrite && (
                       <div className="bg-surface rounded-xl p-4 border border-primary/30 space-y-3 relative">
                         <div className="flex items-center justify-between">
-                          <span className="text-xs font-medium text-primary  ">
+                          <span className="text-sm font-medium text-primary  ">
                             Suggested example rewrite
                           </span>
                           <button
                             onClick={() => handleCopyText(sug.exampleRewrite, `sug-${idx}`)}
-                            className="px-2.5 py-1 bg-primary/10 hover:bg-primary-hover/10 text-primary rounded-lg text-xs font-medium flex items-center gap-1.5 transition-colors"
+                            className="px-2.5 py-1 bg-primary/10 hover:bg-primary-hover/10 text-primary rounded-lg text-sm font-medium flex items-center gap-1.5 transition-colors"
                           >
                             {copiedField === `sug-${idx}` ? (
                               <>
@@ -443,7 +443,7 @@ const Result = () => {
               <h3 className="font-medium text-main text-base">LinkedIn "About" summary rewrite</h3>
               <button
                 onClick={() => handleCopyText(linkedinOptimization.aboutSection, 'about')}
-                className="px-3 py-1.5 bg-primary/10 hover:bg-primary-hover/10 text-primary rounded-lg text-xs font-medium flex items-center gap-1.5"
+                className="px-3 py-1.5 bg-primary/10 hover:bg-primary-hover/10 text-primary rounded-lg text-sm font-medium flex items-center gap-1.5"
               >
                 {copiedField === 'about' ? <Check className="w-4 h-4 text-success" /> : <Copy className="w-4 h-4" />}
                 <span>Copy summary</span>
@@ -459,7 +459,7 @@ const Result = () => {
             <h3 className="font-medium text-main text-base mb-3">Recommended LinkedIn skills</h3>
             <div className="flex flex-wrap gap-2">
               {linkedinOptimization.skillsToAdd.map((sk, i) => (
-                <span key={i} className="px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/30 text-primary text-xs font-medium">
+                <span key={i} className="px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/30 text-primary text-sm font-medium">
                   + {sk}
                 </span>
               ))}

@@ -150,7 +150,7 @@ const Analyze = () => {
     <div className="max-w-6xl mx-auto px-4 py-8 analyzer-page">
       {/* Page Title */}
       <div className="text-center max-w-2xl mx-auto mb-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-medium mb-3">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-3">
           <Zap className="w-3.5 h-3.5 text-primary" />
           <span>Powered by Google Gemini</span>
         </div>
@@ -167,7 +167,7 @@ const Analyze = () => {
         <div className="glass-panel p-6 rounded-2xl border border-line">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-medium text-main flex items-center gap-2">
-              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-main text-xs font-medium">1</span>
+              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-main text-sm font-medium">1</span>
               Select analysis mode
             </h2>
           </div>
@@ -195,7 +195,7 @@ const Analyze = () => {
                     {isSelected && <CheckCircle2 className="w-5 h-5 text-primary" />}
                   </div>
                   <h3 className="font-medium text-main text-sm">{m.title}</h3>
-                  <p className="text-xs text-muted mt-1 leading-relaxed">{m.desc}</p>
+                  <p className="text-sm text-muted mt-1 leading-relaxed">{m.desc}</p>
                 </button>
               );
             })}
@@ -209,10 +209,10 @@ const Analyze = () => {
             <div>
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-lg font-medium text-main flex items-center gap-2">
-                  <span className="flex items-center justify-center w-6 h-6 rounded-full bg-page border border-line text-primary text-xs font-medium">2</span>
+                  <span className="flex items-center justify-center w-6 h-6 rounded-full bg-page border border-line text-primary text-sm font-medium">2</span>
                   Upload resume PDF
                 </h2>
-                <span className="text-xs text-muted">PDF only, max 5 MB</span>
+                <span className="text-sm text-muted">PDF only, max 5 MB</span>
               </div>
 
               {!file ? (
@@ -241,7 +241,7 @@ const Analyze = () => {
                     <p className="text-sm font-medium text-main">
                       Drag and drop your resume PDF here or <span className="text-primary underline">browse</span>
                     </p>
-                    <p className="text-xs text-muted mt-2">Text-based PDF format supported</p>
+                    <p className="text-sm text-muted mt-2">Text-based PDF format supported</p>
                   </label>
                 </div>
               ) : (
@@ -254,7 +254,7 @@ const Analyze = () => {
                       <h4 className="font-medium text-main text-sm truncate max-w-[220px] sm:max-w-[280px]">
                         {file.name}
                       </h4>
-                      <p className="text-xs text-muted mt-0.5">
+                      <p className="text-sm text-muted mt-0.5">
                         {(file.size / (1024 * 1024)).toFixed(2)} MB • PDF Document
                       </p>
                     </div>
@@ -273,7 +273,7 @@ const Analyze = () => {
 
             {/* Job Title Input (Optional) */}
             <div className="mt-6">
-              <label htmlFor="job-title" className="block text-xs font-medium  text-main mb-2">
+              <label htmlFor="job-title" className="block text-sm font-medium  text-main mb-2">
                 Job title or position (optional)
               </label>
               <input
@@ -292,13 +292,13 @@ const Analyze = () => {
             <div>
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-lg font-medium text-main flex items-center gap-2">
-                  <span className="flex items-center justify-center w-6 h-6 rounded-full bg-page border border-line text-primary text-xs font-medium">3</span>
+                  <span className="flex items-center justify-center w-6 h-6 rounded-full bg-page border border-line text-primary text-sm font-medium">3</span>
                   Target job description
                 </h2>
                 <button
                   type="button"
                   onClick={handleLoadSampleJD}
-                  className="text-xs text-primary hover:text-primary font-medium hover:underline flex items-center gap-1"
+                  className="text-sm text-primary hover:text-primary font-medium hover:underline flex items-center gap-1"
                 >
                   <Sparkles className="w-3.5 h-3.5" />
                   Load sample JD
@@ -315,7 +315,7 @@ const Analyze = () => {
                   placeholder="Paste the target job description requirements, responsibilities, and qualifications here..."
                   className="w-full p-4 bg-surface border border-line rounded-xl text-main placeholder-muted focus:outline-none focus:border-primary text-sm leading-relaxed resize-none"
                 />
-                <div className="absolute bottom-3 right-3 text-xs text-muted font-mono">
+                <div className="absolute bottom-3 right-3 text-sm text-muted font-mono">
                   {jobDescription.length} chars
                 </div>
               </div>

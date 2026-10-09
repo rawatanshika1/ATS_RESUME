@@ -43,10 +43,10 @@ const ScoreGauge = ({ score = 0, size = 180, strokeWidth = 14 }) => {
         </svg>
         <div className="absolute flex flex-col items-center justify-center text-center">
           <span className="text-4xl font-medium tracking-tight text-main">{normalizedScore}%</span>
-          <span className="text-xs text-muted mt-1">ATS score</span>
+          <span className="text-sm text-muted mt-1">ATS score</span>
         </div>
       </div>
-      <div className="score-badge mt-3 inline-flex items-center px-3 py-1 rounded-md text-xs border border-line text-primary">
+      <div className="score-badge mt-3 inline-flex items-center px-3 py-1 rounded-md text-sm border border-line text-primary">
         {badgeLabel}
       </div>
     </div>

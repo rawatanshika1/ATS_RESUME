@@ -51,7 +51,7 @@ const Login = () => {
         <div className="auth-card p-8 rounded-2xl">
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label htmlFor="login-email" className="block text-xs font-medium text-main mb-2">Email address</label>
+              <label htmlFor="login-email" className="block text-sm font-medium text-main mb-2">Email address</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-muted">
                   <Mail className="w-4 h-4" />
@@ -69,7 +69,7 @@ const Login = () => {
             </div>
 
             <div>
-              <label htmlFor="login-password" className="block text-xs font-medium text-main mb-2">Password</label>
+              <label htmlFor="login-password" className="block text-sm font-medium text-main mb-2">Password</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-muted">
                   <Lock className="w-4 h-4" />
@@ -110,7 +110,7 @@ const Login = () => {
             </button>
           </form>
 
-          <div className="mt-6 text-center text-xs text-muted border-t border-divider pt-5">
+          <div className="mt-6 text-center text-sm text-muted border-t border-divider pt-5">
             Don't have an account?{' '}
             <Link to="/register" className="text-accent font-medium hover:underline">
               Create account

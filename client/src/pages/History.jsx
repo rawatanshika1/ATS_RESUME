@@ -124,7 +124,7 @@ const History = () => {
             <FileText className="w-6 h-6" />
           </div>
           <div>
-            <p className="text-xs font-medium text-muted">Total analyses</p>
+            <p className="text-sm font-medium text-muted">Total analyses</p>
             <p className="text-2xl font-medium text-main mt-0.5">{total}</p>
           </div>
         </div>
@@ -134,7 +134,7 @@ const History = () => {
             <TrendingUp className="w-6 h-6" />
           </div>
           <div>
-            <p className="text-xs font-medium text-muted">Average ATS score</p>
+            <p className="text-sm font-medium text-muted">Average ATS score</p>
             <p className="text-2xl font-medium text-main mt-0.5">{avgScore}%</p>
           </div>
         </div>
@@ -144,7 +144,7 @@ const History = () => {
             <Award className="w-6 h-6" />
           </div>
           <div>
-            <p className="text-xs font-medium text-muted">Best score</p>
+            <p className="text-sm font-medium text-muted">Best score</p>
             <p className="text-2xl font-medium text-main mt-0.5">{maxScore}%</p>
           </div>
         </div>
@@ -158,8 +158,8 @@ const History = () => {
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={comparisonChartData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="var(--line)" />
-                <XAxis dataKey="date" stroke="var(--muted)" tick={{ fill: 'var(--text)', fontSize: 12 }} />
-                <YAxis domain={[0, 100]} stroke="var(--muted)" tick={{ fill: 'var(--text)', fontSize: 12 }} />
+                <XAxis dataKey="date" stroke="var(--muted)" tick={{ fill: 'var(--text)', fontSize: 13 }} />
+                <YAxis domain={[0, 100]} stroke="var(--muted)" tick={{ fill: 'var(--text)', fontSize: 13 }} />
                 <Tooltip
                   contentStyle={{ backgroundColor: 'var(--surface)', borderColor: 'var(--line)', borderRadius: '8px', color: 'var(--text)' }}
                 />
@@ -205,7 +205,7 @@ const History = () => {
       {loading ? (
         <div className="py-12 text-center">
           <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin mx-auto mb-2"></div>
-          <p className="text-muted text-xs">Loading history...</p>
+          <p className="text-muted text-sm">Loading history...</p>
         </div>
       ) : filteredAnalyses.length === 0 ? (
         <div className="glass-panel p-12 rounded-2xl border border-line text-center space-y-4">
@@ -218,7 +218,7 @@ const History = () => {
           </p>
           <Link
             to="/analyze"
-            className="button button-primary inline-flex items-center gap-2 px-6 py-2.5 text-white text-xs font-medium rounded-md transition-colors"
+            className="button button-primary inline-flex items-center gap-2 px-6 py-2.5 text-white text-sm font-medium rounded-md transition-colors"
           >
             Start First Analysis
           </Link>
@@ -227,7 +227,7 @@ const History = () => {
         <div className="glass-panel rounded-2xl border border-line overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm text-main">
-              <thead className="bg-surface text-xs font-medium  text-muted border-b border-line">
+              <thead className="bg-surface text-sm font-medium  text-muted border-b border-line">
                 <tr>
                   <th className="py-4 px-4">Compare</th>
                   <th className="py-4 px-6">Job title</th>
@@ -263,30 +263,30 @@ const History = () => {
                       </td>
                       <td className="py-4 px-6 font-medium text-main">{item.jobTitle}</td>
                       <td className="py-4 px-6">
-                        <span className="text-xs  font-medium px-2.5 py-0.5 rounded-full bg-surface border border-line text-main">
+                        <span className="text-sm  font-medium px-2.5 py-0.5 rounded-full bg-surface border border-line text-main">
                           {item.mode}
                         </span>
                       </td>
-                      <td className="py-4 px-6 text-muted text-xs truncate max-w-[180px]">{item.resumeFileName}</td>
+                      <td className="py-4 px-6 text-muted text-sm truncate max-w-[180px]">{item.resumeFileName}</td>
                       <td className="py-4 px-6">
-                        <span className={`px-2.5 py-1 rounded-lg border text-xs font-medium ${badgeColor}`}>
+                        <span className={`px-2.5 py-1 rounded-lg border text-sm font-medium ${badgeColor}`}>
                           {item.overallScore}%
                         </span>
                       </td>
-                      <td className="py-4 px-6 text-muted text-xs">
+                      <td className="py-4 px-6 text-muted text-sm">
                         {new Date(item.createdAt).toLocaleDateString()}
                       </td>
                       <td className="py-4 px-6 text-right space-x-2" onClick={(e) => e.stopPropagation()}>
                         <Link
                           to={`/result/${item.id}`}
-                          className="inline-flex items-center gap-1 p-2 bg-page text-primary hover:bg-surface rounded-md text-xs font-medium transition-colors"
+                          className="inline-flex items-center gap-1 p-2 bg-page text-primary hover:bg-surface rounded-md text-sm font-medium transition-colors"
                         >
                           <Eye className="w-3.5 h-3.5" />
                           <span>View</span>
                         </Link>
                         <button
                           onClick={(e) => handleDelete(item.id, e)}
-                          className="p-2 bg-page text-error hover:bg-surface rounded-md text-xs font-medium transition-colors"
+                          className="p-2 bg-page text-error hover:bg-surface rounded-md text-sm font-medium transition-colors"
                           title="Delete"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -301,7 +301,7 @@ const History = () => {
 
           {/* Pagination Controls */}
           {pages > 1 && (
-            <div className="p-4 border-t border-line flex items-center justify-between text-xs text-muted">
+            <div className="p-4 border-t border-line flex items-center justify-between text-sm text-muted">
               <span>Page {page} of {pages}</span>
               <div className="flex gap-2">
                 <button
